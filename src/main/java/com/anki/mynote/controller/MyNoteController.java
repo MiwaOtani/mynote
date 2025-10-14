@@ -40,7 +40,7 @@ public class MyNoteController {
 				Quiz quiz = service.findByIdQuiz(id);
 				if (quiz != null) {
 					//対象データがある場合はモデルに格納
-					model.addAttribute("quiz", service.findByIdQuiz(id));
+					model.addAttribute("quiz", quiz);
 					return "mynote/detail";
 				} else {
 					//対象データがない場合はフラッシュメッセージを設定

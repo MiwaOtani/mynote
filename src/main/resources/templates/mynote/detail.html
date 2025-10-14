@@ -2,39 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ToDo詳細</title>
+<title>クイズ詳細</title>
 </head>
 <body>
-<h2>ToDo詳細</h2>
+<h2>クイズ詳細</h2>
 	<table border="1">
 		<tr>
 			<th>ID</th>
-			<td th:text="${todo.id}"></td>
+			<td th:text="${quiz.id}"></td>
 		</tr>
 		<tr>
-			<th>タイトル</th>
-			<td th:text="${todo.todo}"></td>
+			<th>問題</th>
+			<td th:text="${quiz.question}"></td>
 		</tr>
 		<tr>
-			<th>詳細</th>
-			<td th:text="${todo.detail}"></td>
+			<th>回答1</th>
+			<td th:text="${quiz.answer1}"></td>
 		</tr>
 		<tr>
-			<th>登録日時</th>
-			<td th:text="${todo.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>
+			<th>回答2</th>
+			<td th:text="${quiz.answer2}"></td>
 		</tr>
 		<tr>
-			<th>更新日時</th>
-			<td th:text="${todo.updatedAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>
+			<th>回答3</th>
+			<td th:text="${quiz.answer3}"></td>
 		</tr>
+		<tr>
+			<th>回答4</th>
+			<td th:text="${quiz.answer4}"></td>
+		</tr>
+		<tr>
+			<th>正解は</th>
+			<td th:text="${quiz.correctAns}"></td>
+		</tr>
+		<tr>
+			<th>カテゴリ</th>
+			<td th:text="${quiz.categoryId}"></td>
+		</tr>
+<!--		<tr>-->
+<!--			<th>カテゴリ名</th>-->
+<!--			<td th:text="${quiz.categoryName}"></td>-->
+<!--		</tr>-->
+<!--		<tr>-->
+<!--			<th>更新日時</th>-->
+<!--			<td th:text="${history.answeredAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>-->
+<!--		</tr>-->
 	</table>
 
-	<a th:href="@{/todos/edit/{id}(id=${todo.id})}">編集する</a>
-	<form th:action="@{/todos/delete/{id}(id=${todo.id})}" method="post">
+	<a th:href="@{/mynote/quizzes/edit/{id}(id=${quiz.id})}">編集する</a>
+	<form th:action="@{/mynote/quizzes/delete/{id}(id=${quiz.id})}" method="post">
 		<input type="submit" value="削除">
 	</form>
-	<form th:action="@{'/todos/' + (${todo.isVisible} ? 'hide' : 'show') + '/' + ${todo.id}}" method="post">
-	      <button type="submit" th:text="${todo.isVisible} ? '非表示にする' : '表示に戻す'"></button>
+	<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
+	      <button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>
 	    </form>
 		
 <!--	<form action="/todos/toggle/${todo.id}" method="post">-->
@@ -52,15 +72,13 @@
 	
 	サンプル
 	<table>
-	<tr th:each="todo : ${todos}">
-	  <td th:text="${todo.todo}">ToDo内容</td>
-	  <td th:text="${todo.detail}">詳細</td>
-	  <td>
-	
-	  </td>
+	<tr th:each="quiz : ${quizzes}">
+	  <td th:text="${quiz.question}">問題</td>
+	  <td th:text="${quiz.answer1}">答え1</td>
+	  <td th:text="${quiz.answer2}">答え2</td>
 	</tr>
 	</table>
 	
-	<a th:href="@{/todos}">ToDo一覧へ</a>
+	<a th:href="@{/mynote/quizzes}">クイズ一覧へ</a>
 </body>
 </html>

@@ -30,7 +30,7 @@
 			<td th:text="${quiz.answer2}"></td>
 			<td th:text="${quiz.answer3}"></td>
 			<td th:text="${quiz.answer4}"></td>
-			<td><a th:href="@{/quizzes/{id}(id=${quiz.id})}">詳細</a></td>
+			<td><a th:href="@{/mynote/quizzes/{id}(id=${quiz.id})}">詳細</a></td>
 			<!--{id}がプレースホルダ位置で、( )の中身はそこのidに${quiz.id}を代入するという意味-->
 		</tr>
 	</tbody>
