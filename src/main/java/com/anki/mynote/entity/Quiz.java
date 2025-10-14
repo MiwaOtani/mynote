@@ -23,5 +23,8 @@ public class Quiz {
 	//回答履歴と１対１の関係
 	private History history;
 	//カテゴリと１対多の関係
-	private List<Category> category;
+	private List<Category> categories;
+	
+	private String imagePath; // 画像の保存先パス
+
 }

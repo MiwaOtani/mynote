@@ -6,6 +6,8 @@
 </head>
 <body>
 <h2>クイズ詳細</h2>
+<p th:text="${quiz.question}"></p>
+<img th:if="${quiz.imagePath}" th:src="@{${quiz.imagePath}}" alt="問題画像">
 	<table border="1">
 		<tr>
 			<th>ID</th>
@@ -13,7 +15,8 @@
 		</tr>
 		<tr>
 			<th>問題</th>
-			<td th:text="${quiz.question}"></td>
+			<td th:text="${quiz.question}">
+			</td>
 		</tr>
 		<tr>
 			<th>回答1</th>

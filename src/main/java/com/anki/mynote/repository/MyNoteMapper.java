@@ -25,4 +25,6 @@ public interface MyNoteMapper {
 		void hide(@Param("id") Integer id);
 		//指定されたIDの問題を再度表示する
 		void show(@Param("id") Integer id);
+		
+		void save(Quiz quiz);
 }

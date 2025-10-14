@@ -70,4 +70,10 @@ public class MyNoteServiceImpl implements MyNoteService {
 	    myNoteMapper.show(id);
 	}
 
+	@Override
+	public void saveQuiz(Quiz quiz) {
+		// TODO 自動生成されたメソッド・スタブ
+		myNoteMapper.save(quiz);
+	}
+
 }

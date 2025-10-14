@@ -21,4 +21,6 @@ public interface MyNoteService {
 	void  hideQuiz(Integer id);
 	//指定されたIDの問題を再度表示する
 	void  showQuiz(Integer id);
+	
+	void saveQuiz(Quiz quiz);
 }
