@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ToDo詳細</title>
+</head>
+<body>
+<h2>ToDo詳細</h2>
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<td th:text="${todo.id}"></td>
+		</tr>
+		<tr>
+			<th>タイトル</th>
+			<td th:text="${todo.todo}"></td>
+		</tr>
+		<tr>
+			<th>詳細</th>
+			<td th:text="${todo.detail}"></td>
+		</tr>
+		<tr>
+			<th>登録日時</th>
+			<td th:text="${todo.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>
+		</tr>
+		<tr>
+			<th>更新日時</th>
+			<td th:text="${todo.updatedAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>
+		</tr>
+	</table>
+
+	<a th:href="@{/todos/edit/{id}(id=${todo.id})}">編集する</a>
+	<form th:action="@{/todos/delete/{id}(id=${todo.id})}" method="post">
+		<input type="submit" value="削除">
+	</form>
+	<form th:action="@{'/todos/' + (${todo.isVisible} ? 'hide' : 'show') + '/' + ${todo.id}}" method="post">
+	      <button type="submit" th:text="${todo.isVisible} ? '非表示にする' : '表示に戻す'"></button>
+	    </form>
+		
+<!--	<form action="/todos/toggle/${todo.id}" method="post">-->
+<!--		<button type="submit">-->
+<!--			<c:choose>-->
+<!--				<c:when test="${todo.isVisible}">-->
+<!--					非表示にする-->
+<!--				</c:when>-->
+<!--				<c:otherwise>-->
+<!--					表示に戻す-->
+<!--				</c:otherwise>-->
+<!--			</c:choose>-->
+<!--		</button>-->
+<!--	</form>-->
+	
+	サンプル
+	<table>
+	<tr th:each="todo : ${todos}">
+	  <td th:text="${todo.todo}">ToDo内容</td>
+	  <td th:text="${todo.detail}">詳細</td>
+	  <td>
+	
+	  </td>
+	</tr>
+	</table>
+	
+	<a th:href="@{/todos}">ToDo一覧へ</a>
+</body>
+</html>

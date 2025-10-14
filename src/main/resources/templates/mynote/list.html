@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>クイズ一覧</title>
+</head>
+<body>
+<h2>クイズ一覧</h2>
+<!--Flashメッセージの表示-->
+<p th:if="${message}" th:text="${message}" style="color: blue;">完了メッセージ</p>
+<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;">エラーメッセージ</p>
+
+<table border="1" width="300">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>問題</th>
+			<th>回答1</th>
+			<th>回答2</th>
+			<th>回答3</th>
+			<th>回答4</th>
+			<th>詳細</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="quiz : ${quizzes}"> <!--繰り返し処理-->
+			<td th:text="${quiz.id}"></td>
+			<td th:text="${quiz.question}"></td>
+			<td th:text="${quiz.answer1}"></td>
+			<td th:text="${quiz.answer2}"></td>
+			<td th:text="${quiz.answer3}"></td>
+			<td th:text="${quiz.answer4}"></td>
+			<td><a th:href="@{/quizzes/{id}(id=${quiz.id})}">詳細</a></td>
+			<!--{id}がプレースホルダ位置で、( )の中身はそこのidに${quiz.id}を代入するという意味-->
+		</tr>
+	</tbody>
+</table>
+
+<a th:href="@{/mynote/form}">新規登録</a>
+
+</body>
+</html>

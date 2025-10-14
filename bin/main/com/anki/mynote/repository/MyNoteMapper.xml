@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anki.mynote.repository.MyNoteMapper">
+	<!--全件検索-->
+	<select id="selectAll" resultType="com.anki.mynote.entity.Quiz">
+		SELECT id, question, answer_1 as answer1, answer_2 as answer2, answer_3 as answer3, 
+		answer_4 as answer4, correct_ans as correctAns, category_id as categoryId FROM quizzes WHERE is_visible = 1
+	</select>
+	<!--非表示も含めて全件表示：管理者用-->
+	<select id="selectAllAdmin" resultType="com.anki.mynote.entity.Quiz">
+		SELECT id, question, answer_1 as answer1, answer_2 as answer2, answer_3 as answer3, 
+		answer_4 as answer4, correct_ans as correctAns, category_id as categoryId, is_visible as isVisible FROM quizzes
+	</select>
+	<!--1件検索：あえてvisible指定なし-->
+	<select id="selectById" resultType="com.anki.mynote.entity.Quiz">
+		SELECT id, question, answer_1 as answer1, answer_2 as answer2, answer_3 as answer3, 
+		answer_4 as answer4, correct_ans as correctAns, category_id as categoryId FROM quizzes WHERE id = #{id} 
+	</select>
+	<!--登録-->
+	<insert id="insert">
+		INSERT INTO quizzes (question, answer_1, answer_2, answer_3, answer_4, correct_ans, category_id) 
+		VALUES (#{question}, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{correctAns}, #{categoryId})
+	</insert>
+	<!--更新-->
+	<update id="update">
+		UPDATE quizzes SET question = #{question}, answer_1 = #{answer1}, answer_2 = #{answer2}, 
+		answer_3 = #{answer3}, answer_4 = #{answer4}, correct_ans = #{correctAns}, category_id =  #{categoryId} 
+		WHERE id = #{id} 
+	</update>
+	<!--削除-->
+	<delete id="delete">
+		DELETE FROM quizzes WHERE id = #{id} 
+	</delete>
+	<!--非表示にする-->
+	<update id="hide">
+	    UPDATE quizzes SET is_visible = 0 WHERE id = #{id}
+	</update>
+		<!--再度表示する-->
+	<update id="show">
+	    UPDATE quizzes SET is_visible = 1 WHERE id = #{id}
+	</update>
+</mapper>
