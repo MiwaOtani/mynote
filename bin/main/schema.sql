@@ -22,6 +22,7 @@ CREATE TABLE quizzes (
     ,correct_ans TINYINT NOT NULL 
     ,category_id INT DEFAULT 1 COMMENT '外部キー：categories.category_idを参照'
     ,is_visible TINYINT NOT NULL DEFAULT 1 COMMENT '表示フラグ（0：非表示、1：表示）'
+    ,image_path VARCHAR(255) NOT null 
     ,FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 

@@ -24,7 +24,7 @@ public class Quiz {
 	private History history;
 	//カテゴリと１対多の関係
 	private List<Category> categories;
-	
-	private String imagePath; // 画像の保存先パス
+	// 画像の保存先パス
+	private String imagePath; 
 
 }

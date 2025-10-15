@@ -18,9 +18,9 @@ public interface MyNoteService {
 	//指定されたIDの問題を削除する
 	void deleteQuiz(Integer id);
 	//指定されたIDの問題を非表示する
-	void  hideQuiz(Integer id);
+	void hideQuiz(Integer id);
 	//指定されたIDの問題を再度表示する
-	void  showQuiz(Integer id);
-	
+	void showQuiz(Integer id);
+	//画像パスを保存する
 	void saveQuiz(Quiz quiz);
 }

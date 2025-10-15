@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暗記アプリMyNote</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- cherry-bomb font -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet"> -->
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
-トップページです！
+    <div class="outerWrapper">
+
+        <!-- ヘッダーをインクルード -->
+        <header id="header" class="">
+            <nav>
+                <ul>
+                    <li><a class="nav" th:href="@{/mynote}"><i class="fa-solid fa-house-chimney"></i></a></li>
+                    <li><a class="nav" th:href="@{/mynote/admin}"><i class="fa-solid fa-gear"></i></a></li>
+            </nav>
+            <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
+        </header>
+
+        <main id="main" class="">
+            <!-- <h2>Let's Study!</h2> -->
+
+            <div class="btn">
+                <a th:href="@{/mynote/quizzes}">勉強する</a>
+            </div>
+            <div class="btn">
+                <a th:href="@{/mynote/history}">学習履歴をみる</a>
+            </div>
+            <div class="btn">
+                <a th:href="@{/mynote/quizzes/form}">問題を作成する</a>
+            </div>
+
+            <!-- <div class="historyback">
+                <button class="nav_btn" onClick="history.back(); return false;" type="button">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>前のページにもどる</button>
+            </div> -->
+        </main>
+
+        <!-- フッターをインクルード -->
+        <footer id="footer">
+            <p>Copyright &copy; 2025 Anki Appli myNote.</p>
+        </footer>
+    </div><!--outerWrapper-->
+	
+	<script src="/js/script.js"></script>
 </body>
+
 </html>

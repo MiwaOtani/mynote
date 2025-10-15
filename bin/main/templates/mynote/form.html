@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>暗記アプリMyNote 問題作成フォーム</title>
 </head>
 <body>
-
+<!-- タイトル：登録 OR 編集 -->
+<h2 th:if="${myNoteForm.isNew}">新しい問題を作成する</h2>
+<h2 th:unless="${myNoteForm.isNew}">登録した問題を編集する</h2>
+<!-- アクション：登録 OR 編集 -->
+<form th:action="${myNoteForm.isNew} ? @{/mynote/quizzes/save} : @{/mynote/quizzes/update}" th:object="${myNoteForm}" method="post">
+<!-- idは更新時に必要なため、hiddenで持つ-->
+<input type="hidden" th:field="*{id}">
+	<table>
+		<tr>
+			<th>問題文</th>
+			<td>
+				<textarea row="5" cols="30"  th:field="*{question}"></textarea>
+				<!--バリデーションエラー表示 -->
+				<span th:if="${#fields.hasErrors('question')}" th:errors="*{question}" style="color:red;">エラーがあれば表示</span>
+			</td>
+		</tr>
+		<tr>
+			<th>答え1</th>
+			<td>
+				<textarea row="5" cols="30"  th:field="*{answer1}"></textarea>
+				<!--バリデーションエラー表示 -->
+				<span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
+			</td>
+		</tr>
+		<tr>
+			<th>答え2</th>
+			<td>
+				<textarea row="5" cols="30"  th:field="*{answer2}"></textarea>
+				<!--バリデーションエラー表示 -->
+				<span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
+			</td>
+		</tr>
+	</table>
+<!-- ボタン：登録 OR 編集 -->
+<input th:if="${myNoteForm.isNew}" type="submit" value="登録する">
+<input th:unless="${myNoteForm.isNew}" type="submit" value="更新する">
+</form>
+<a th:href="@{/mynote}">トップページへ戻る</a>
 </body>
 </html>

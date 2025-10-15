@@ -17,7 +17,7 @@
 		answer_4 as answer4, correct_ans as correctAns, category_id as categoryId FROM quizzes WHERE id = #{id} 
 	</select>
 	<!--登録-->
-	<insert id="insert"><!-- image_path as imagePathまだ入れてない -->>
+	<insert id="insert"><!-- image_path as imagePathまだ入れてない -->
 		INSERT INTO quizzes (question, answer_1, answer_2, answer_3, answer_4, correct_ans, category_id) 
 		VALUES (#{question}, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{correctAns}, #{categoryId})
 	</insert>
