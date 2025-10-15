@@ -2,6 +2,8 @@ package com.anki.mynote.form;
 
 import jakarta.validation.constraints.NotBlank;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +18,10 @@ public class MyNoteForm {
 	//問題
 	@NotBlank(message = "問題文は必須です。")
 	private String question;
-	//問題
+	//答え1
 	@NotBlank(message = "答え1は必須です。")
 	private String answer1;
-	//問題
+	//答え2
 	@NotBlank(message = "答え2は必須です。")
 	private String answer2;
 	
@@ -28,6 +30,8 @@ public class MyNoteForm {
 	private Integer correctAns;
 	private Integer categoryId;
 	private String imagePath; 
+	private MultipartFile image; //  追加
 	//新規判定
 	private Boolean isNew; //TrueまたはFalse
+	private String questionType; // "multiple" or "truefalse"
 }

@@ -1,87 +1,122 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>クイズ詳細</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暗記アプリMyNote</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-<body>
-<h2>クイズ詳細</h2>
-<p th:text="${quiz.question}"></p>
-<img th:if="${quiz.imagePath}" th:src="@{${quiz.imagePath}}" alt="問題画像">
-	<table border="1">
-		<tr>
-			<th>ID</th>
-			<td th:text="${quiz.id}"></td>
-		</tr>
-		<tr>
-			<th>問題</th>
-			<td th:text="${quiz.question}">
-			</td>
-		</tr>
-		<tr>
-			<th>回答1</th>
-			<td th:text="${quiz.answer1}"></td>
-		</tr>
-		<tr>
-			<th>回答2</th>
-			<td th:text="${quiz.answer2}"></td>
-		</tr>
-		<tr>
-			<th>回答3</th>
-			<td th:text="${quiz.answer3}"></td>
-		</tr>
-		<tr>
-			<th>回答4</th>
-			<td th:text="${quiz.answer4}"></td>
-		</tr>
-		<tr>
-			<th>正解は</th>
-			<td th:text="${quiz.correctAns}"></td>
-		</tr>
-		<tr>
-			<th>カテゴリ</th>
-			<td th:text="${quiz.categoryId}"></td>
-		</tr>
-<!--		<tr>-->
-<!--			<th>カテゴリ名</th>-->
-<!--			<td th:text="${quiz.categoryName}"></td>-->
-<!--		</tr>-->
-<!--		<tr>-->
-<!--			<th>更新日時</th>-->
-<!--			<td th:text="${history.answeredAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>-->
-<!--		</tr>-->
-	</table>
 
-	<a th:href="@{/mynote/quizzes/edit/{id}(id=${quiz.id})}">編集する</a>
-	<form th:action="@{/mynote/quizzes/delete/{id}(id=${quiz.id})}" method="post">
-		<input type="submit" value="削除">
-	</form>
-	<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
-	      <button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>
-	    </form>
-		
-<!--	<form action="/todos/toggle/${todo.id}" method="post">-->
-<!--		<button type="submit">-->
-<!--			<c:choose>-->
-<!--				<c:when test="${todo.isVisible}">-->
-<!--					非表示にする-->
-<!--				</c:when>-->
-<!--				<c:otherwise>-->
-<!--					表示に戻す-->
-<!--				</c:otherwise>-->
-<!--			</c:choose>-->
-<!--		</button>-->
-<!--	</form>-->
+<body>
+    <div class="outerWrapper">
+
+        <!-- ヘッダーをインクルード -->
+        <header id="header" class="">
+            <nav>
+                <ul>
+                    <li><a class="nav" th:href="@{/mynote}"><i class="fa-solid fa-house-chimney"></i></a></li>
+                    <li><a class="nav" th:href="@{/mynote/admin}"><i class="fa-solid fa-gear"></i></a></li>
+            </nav>
+            <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
+        </header>
+
+        <main id="main" class="">
+            <!-- ここにメインコンテンツ -->
+
+			<h2>クイズ詳細</h2>
+			<p th:text="${quiz.question}"></p>
+			<img th:if="${quiz.imagePath}" th:src="@{${quiz.imagePath}}" alt="問題画像">
+				<table border="1">
+					<tr>
+						<th>ID</th>
+						<td th:text="${quiz.id}"></td>
+					</tr>
+					<tr>
+						<th>問題</th>
+						<td th:text="${quiz.question}">
+						</td>
+					</tr>
+					<tr>
+						<th>回答1</th>
+						<td th:text="${quiz.answer1}"></td>
+					</tr>
+					<tr>
+						<th>回答2</th>
+						<td th:text="${quiz.answer2}"></td>
+					</tr>
+					<tr>
+						<th>回答3</th>
+						<td th:text="${quiz.answer3}"></td>
+					</tr>
+					<tr>
+						<th>回答4</th>
+						<td th:text="${quiz.answer4}"></td>
+					</tr>
+					<tr>
+						<th>正解は</th>
+						<td th:text="${quiz.correctAns}"></td>
+					</tr>
+					<tr>
+						<th>カテゴリ</th>
+						<td th:text="${quiz.categoryId}"></td>
+					</tr>
+			<!--		<tr>-->
+			<!--			<th>カテゴリ名</th>-->
+			<!--			<td th:text="${quiz.categoryName}"></td>-->
+			<!--		</tr>-->
+			<!--		<tr>-->
+			<!--			<th>更新日時</th>-->
+			<!--			<td th:text="${history.answeredAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>-->
+			<!--		</tr>-->
+				</table>
+
+				<a th:href="@{/mynote/quizzes/edit/{id}(id=${quiz.id})}">編集する</a>
+				<form th:action="@{/mynote/quizzes/delete/{id}(id=${quiz.id})}" method="post">
+					<input type="submit" value="削除">
+				</form>
+				<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
+				      <button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>
+				    </form>
+					
+			<!--	<form action="/todos/toggle/${todo.id}" method="post">-->
+			<!--		<button type="submit">-->
+			<!--			<c:choose>-->
+			<!--				<c:when test="${todo.isVisible}">-->
+			<!--					非表示にする-->
+			<!--				</c:when>-->
+			<!--				<c:otherwise>-->
+			<!--					表示に戻す-->
+			<!--				</c:otherwise>-->
+			<!--			</c:choose>-->
+			<!--		</button>-->
+			<!--	</form>-->
+				
+				サンプル
+				<table>
+				<tr th:each="quiz : ${quizzes}">
+				  <td th:text="${quiz.question}">問題</td>
+				  <td th:text="${quiz.answer1}">答え1</td>
+				  <td th:text="${quiz.answer2}">答え2</td>
+				</tr>
+				</table>
+				
+				<a th:href="@{/mynote/quizzes}">クイズ一覧へ</a>
+            <!-- //メインコンテンツここまで -->
+        </main>
+
+        <!-- フッターをインクルード -->
+        <footer id="footer">
+            <p>Copyright &copy; 2025 Anki Appli myNote.</p>
+        </footer>
+    </div><!--outerWrapper-->
 	
-	サンプル
-	<table>
-	<tr th:each="quiz : ${quizzes}">
-	  <td th:text="${quiz.question}">問題</td>
-	  <td th:text="${quiz.answer1}">答え1</td>
-	  <td th:text="${quiz.answer2}">答え2</td>
-	</tr>
-	</table>
-	
-	<a th:href="@{/mynote/quizzes}">クイズ一覧へ</a>
+	<script src="/js/script.js"></script>
 </body>
+
 </html>

@@ -1,47 +1,122 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>暗記アプリMyNote 問題作成フォーム</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暗記アプリMyNote</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
+    <div class="outerWrapper">
+
+        <!-- ヘッダーをインクルード -->
+        <header id="header" class="">
+            <nav>
+                <ul>
+                    <li><a class="nav" th:href="@{/mynote}"><i class="fa-solid fa-house-chimney"></i></a></li>
+                    <li><a class="nav" th:href="@{/mynote/admin}"><i class="fa-solid fa-gear"></i></a></li>
+            </nav>
+            <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
+        </header>
+
+        <main id="main" class="">
+            <!-- ここにメインコンテンツ -->
 <!-- タイトル：登録 OR 編集 -->
 <h2 th:if="${myNoteForm.isNew}">新しい問題を作成する</h2>
 <h2 th:unless="${myNoteForm.isNew}">登録した問題を編集する</h2>
 <!-- アクション：登録 OR 編集 -->
-<form th:action="${myNoteForm.isNew} ? @{/mynote/quizzes/save} : @{/mynote/quizzes/update}" th:object="${myNoteForm}" method="post">
+<form th:action="${myNoteForm.isNew} ? @{/mynote/quizzes/save} : @{/mynote/quizzes/update}" th:object="${myNoteForm}" method="post" enctype="multipart/form-data">
 <!-- idは更新時に必要なため、hiddenで持つ-->
 <input type="hidden" th:field="*{id}">
-	<table>
-		<tr>
-			<th>問題文</th>
-			<td>
-				<textarea row="5" cols="30"  th:field="*{question}"></textarea>
-				<!--バリデーションエラー表示 -->
-				<span th:if="${#fields.hasErrors('question')}" th:errors="*{question}" style="color:red;">エラーがあれば表示</span>
-			</td>
-		</tr>
-		<tr>
-			<th>答え1</th>
-			<td>
-				<textarea row="5" cols="30"  th:field="*{answer1}"></textarea>
-				<!--バリデーションエラー表示 -->
-				<span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
-			</td>
-		</tr>
-		<tr>
-			<th>答え2</th>
-			<td>
-				<textarea row="5" cols="30"  th:field="*{answer2}"></textarea>
-				<!--バリデーションエラー表示 -->
-				<span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
-			</td>
-		</tr>
-	</table>
+
+	<h3>問題文を入力する</h3>
+    <textarea row="5" cols="30"  th:field="*{question}"></textarea>
+    <label>画像</label><br>
+	 <input type="file" name="image" accept="image/*" id="imageInput"><br>
+	 <div id="paste_zone">ここに表示されます<br>
+	<img id="preview" style="max-width:300px; display:none;"><br></div>
+	<!--バリデーションエラー表示 -->
+	<span th:if="${#fields.hasErrors('question')}" th:errors="*{question}" style="color:red;">エラーがあれば表示</span>
+
+  <h3>回答形式を選ぶ</h3>
+  <label><input type="radio" name="type" value="multiple" checked onchange="toggleAnswers(true)"> 選択肢形式</label>
+  <label><input type="radio" name="type" value="truefalse" onchange="toggleAnswers(false)"> ○×形式</label>
+
+  <div id="answers" class="multiple">
+    <h3>選択肢の答え（最大４つまで登録できます）</h3>
+    <div>
+        １．<textarea row="5" cols="30"  th:field="*{answer1}"></textarea>
+        <!--バリデーションエラー表示 -->
+        <span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
+        <label><input type="radio" name="correct_ans" value="1" checked> 正解</label>
+    </div>
+    <div>
+        ２．<textarea row="5" cols="30"  th:field="*{answer2}"></textarea>
+        <!--バリデーションエラー表示 -->
+        <span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
+        <label><input type="radio" name="correct_ans" value="2"> 正解</label>
+    </div>
+    <div>
+        ３．<textarea row="5" cols="30"  th:field="*{answer3}"></textarea>
+        <label><input type="radio" name="correct_ans" value="3"> 正解</label>
+    </div>
+    <div>
+        ４．<textarea row="5" cols="30"  th:field="*{answer4}"></textarea>
+        <label><input type="radio" name="correct_ans" value="4"> 正解</label>
+    </div>
+  </div><!--//multipleエリア-->
+
+  <div id="truefalse" style="display:none;">
+    <div class="maru">
+	    <p>〇の答え</p>
+	    <textarea row="5" cols="30"  th:field="*{answer1}"></textarea>
+	    <!--バリデーションエラー表示 -->
+	    <span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
+    </div>
+    <div class="batsu">
+	    <p>×の答え</p>
+	    <textarea row="5" cols="30"  th:field="*{answer2}"></textarea>
+	    <!--バリデーションエラー表示 -->
+	    <span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
+    </div>
+  </div><!--//truefalseエリア-->
+
+  <h3>カテゴリー</h3>
+  <select name="category_id">
+    <option value="1">一般知識</option>
+    <option value="2">歴史</option>
+    <option value="3">理科</option>
+    <!-- 必要に応じて追加 -->
+  </select>
+
+  <h3>公開設定</h3>
+  <label><input type="checkbox" name="hide" value="1"> 非公開にする</label><br><br>
+
+  
+  
 <!-- ボタン：登録 OR 編集 -->
 <input th:if="${myNoteForm.isNew}" type="submit" value="登録する">
 <input th:unless="${myNoteForm.isNew}" type="submit" value="更新する">
 </form>
 <a th:href="@{/mynote}">トップページへ戻る</a>
+
+            <!-- //メインコンテンツここまで -->
+        </main>
+
+        <!-- フッターをインクルード -->
+        <footer id="footer">
+            <p>Copyright &copy; 2025 Anki Appli myNote.</p>
+        </footer>
+    </div><!--outerWrapper-->
+	
+	<script src="/js/script.js"></script>
 </body>
+
 </html>

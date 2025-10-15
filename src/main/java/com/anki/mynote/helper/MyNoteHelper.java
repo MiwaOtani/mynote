@@ -1,5 +1,14 @@
 package com.anki.mynote.helper;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.anki.mynote.entity.Quiz;
 import com.anki.mynote.form.MyNoteForm;
 
@@ -8,7 +17,7 @@ import com.anki.mynote.form.MyNoteForm;
 //「Form→Entity」「Entity→Form」の変換処理をstaticメソッドで記述
 public class MyNoteHelper {
 	//Quizエンティティへの変換
-		public static Quiz convertQuiz(MyNoteForm form) {
+		public static Quiz convertQuiz(MyNoteForm form, MultipartFile image) {
 			Quiz quiz = new Quiz();
 			quiz.setId(form.getId());
 			quiz.setQuestion(form.getQuestion());
@@ -18,7 +27,21 @@ public class MyNoteHelper {
 			quiz.setAnswer4(form.getAnswer4());
 			quiz.setCorrectAns(form.getCorrectAns());
 			quiz.setCategoryId(form.getCategoryId());
-			quiz.setImagePath(form.getImagePath());
+			if (image != null && !image.isEmpty()) {
+		        try {
+		            String filename = UUID.randomUUID() + "_" + image.getOriginalFilename();
+		            Path savePath = Paths.get("uploads", filename);
+		            Files.copy(image.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
+		            quiz.setImagePath("/uploads/" + filename);
+		            System.out.println("画像保存成功: " + savePath.toAbsolutePath());
+
+		        } catch (IOException e) {
+		            // ログ出力や例外処理は呼び出し元で対応
+		        	System.err.println("画像保存失敗: " + e.getMessage());
+		            quiz.setImagePath(null);
+		        }
+		    }
+			//quiz.setImagePath(form.getImagePath());
 			return quiz;
 		}
 		//	MyNoteFormへの変換

@@ -17,14 +17,14 @@
 		answer_4 as answer4, correct_ans as correctAns, category_id as categoryId FROM quizzes WHERE id = #{id} 
 	</select>
 	<!--登録-->
-	<insert id="insert"><!-- image_path as imagePathまだ入れてない -->
-		INSERT INTO quizzes (question, answer_1, answer_2, answer_3, answer_4, correct_ans, category_id) 
-		VALUES (#{question}, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{correctAns}, #{categoryId})
+	<insert id="insert">
+		INSERT INTO quizzes (question, answer_1, answer_2, answer_3, answer_4, correct_ans, category_id, image_path) 
+		VALUES (#{question}, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{correctAns}, #{categoryId}, #{imagePath})
 	</insert>
 	<!--更新-->
 	<update id="update">
 		UPDATE quizzes SET question = #{question}, answer_1 = #{answer1}, answer_2 = #{answer2}, 
-		answer_3 = #{answer3}, answer_4 = #{answer4}, correct_ans = #{correctAns}, category_id =  #{categoryId} 
+		answer_3 = #{answer3}, answer_4 = #{answer4}, correct_ans = #{correctAns}, category_id =  #{categoryId}, image_path =  #{imagePath}
 		WHERE id = #{id} 
 	</update>
 	<!--削除-->
@@ -40,8 +40,7 @@
 	    UPDATE quizzes SET is_visible = 1 WHERE id = #{id}
 	</update>
 	<insert id="save" parameterType="com.anki.mynote.entity.Quiz">
-  INSERT INTO quizzes (id, question, answer_1, answer_2, answer_3, answer_4, correct_ans, category_id, is_visible, image_path)
-  VALUES (#{id}, #{question}, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{correctAns}, #{categoryId}, #{isVisible}, #{imagePath})
-</insert>
-	
+	  INSERT INTO quizzes (id, question, answer_1, answer_2, answer_3, answer_4, correct_ans, category_id, is_visible, image_path)
+	  VALUES (#{id}, #{question}, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{correctAns}, #{categoryId}, #{isVisible}, #{imagePath})
+	</insert>	
 </mapper>
