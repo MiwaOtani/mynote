@@ -4,10 +4,40 @@
  */
 
 //**********答えの選択 ***********/
-function toggleAnswers(isChoice) {
-  document.getElementById("answers").style.display = isChoice ? "block" : "none";
-  document.getElementById("truefalse").style.display = isChoice ? "none" : "block";
-}
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector("form");
+  const radios = document.querySelectorAll('input[name="questionType"]');
+  const answer3Block = document.getElementById("answer3Block");
+  const answer4Block = document.getElementById("answer4Block");
+  const answer3Textarea = document.getElementById("answer3");
+  const answer4Textarea = document.getElementById("answer4");
+
+  function updateQuestionTypeUI() {
+    const selected = document.querySelector('input[name="questionType"]:checked');
+    const type = selected ? selected.value : null;
+
+    // ラベル切り替え用クラス
+    form.classList.toggle("truefalse", type === "truefalse");
+
+    if (type === "truefalse") {
+      // ◯✕形式なら 3・4 を強制的に非表示
+      answer3Block.style.display = "none";
+      answer4Block.style.display = "none";
+    } else {
+      // multiple形式なら常に表示（空欄でも）
+      answer3Block.style.display = "block";
+      answer4Block.style.display = "block";
+    }
+  }
+
+  radios.forEach(radio => {
+    radio.addEventListener("change", updateQuestionTypeUI);
+  });
+
+  updateQuestionTypeUI(); // 初期表示
+});
+
+
 
 //**********画像登録処理 ***********/
 const preview = document.getElementById('preview');

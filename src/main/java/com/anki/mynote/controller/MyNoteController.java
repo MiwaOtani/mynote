@@ -64,6 +64,12 @@ public class MyNoteController {
 				}
 			}
 			
+			//回答履歴を表示する（/mynote/history）
+			@GetMapping("/history")
+			public String history(Model model) {
+				model.addAttribute("quizzes", service.findAllQuiz());//ここは要検討
+				return "mynote/history"; //mynote/history.html を表示
+			}
 			
 			//*****登録・更新処理追加*****//
 			//新規登録画面を表示する
@@ -71,6 +77,8 @@ public class MyNoteController {
 			public String newQuiz(@ModelAttribute MyNoteForm form) {
 				//	新規登録画面の設定
 				form.setIsNew(true);
+				form.setQuestionType("multiple"); // デフォルト表示は複数回答形式
+				form.setCorrectAns(1); // checkedは1をデフォルトで指定
 				return "mynote/form";
 			}
 
@@ -82,6 +90,10 @@ public class MyNoteController {
 				if (bindingResult.hasErrors()) {
 					//新規登録画面の設定
 					form.setIsNew(true);
+					if (form.getQuestionType() == null) {
+				        form.setQuestionType("multiple"); // null のときだけ補完
+				        form.setCorrectAns(1); 
+				    }
 					return "mynote/form";
 				}
 				//=====================

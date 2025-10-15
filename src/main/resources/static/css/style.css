@@ -100,6 +100,7 @@ source {
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 100%;
   min-height: 100vh;
+  min-width: 365px;
 }
 
 .wrapper {
@@ -154,9 +155,11 @@ source {
   background: #FFF;
   padding: 30px;
   margin: -15px 20px;
-  display: grid;
-  align-content: center;
-  gap: 30px;
+}
+.nemu {
+	display: grid;
+	align-content: center;
+	gap: 30px;
 }
 
 #footer {
@@ -249,6 +252,48 @@ td {
   font: 20pt bold 'Vollkorn';
   color: #bbb;
 }
+.hidden {
+  display: none;
+}
+.visible {
+  display: block;
+}
+.maru, .batsu {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.maru label, .batsu label {
+  width: 2em;
+  text-align: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+textarea {
+  flex: 1;
+  resize: vertical;
+}
+/* デフォルト：数字形式 */
+.answer-label::after {
+  content: attr(data-index) "．";
+}
+
+.truefalse .answer-label[data-index="1"]::after {
+  content: "〇";
+}
+.truefalse .answer-label[data-index="2"]::after {
+  content: "✕";
+}
+/* マルバツ形式のとき、正解ラジオボタンを非表示にする */
+/*.truefalse .answer-row input[type="radio"] {*/
+/*  display: none;*/
+/*}*/
+/*.truefalse .answer-row .label,*/
+/*.truefalse .answer-row label input[type="radio"] {*/
+/*  display: none;*/
+/*}*/
 
 /* ========== メディアクエリ ========== */
 @media (min-width: 768px) {

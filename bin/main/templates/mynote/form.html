@@ -38,67 +38,66 @@
 
 	<h3>問題文を入力する</h3>
     <textarea row="5" cols="30"  th:field="*{question}"></textarea>
+	<!--バリデーションエラー表示 -->
+	<span th:if="${#fields.hasErrors('question')}" th:errors="*{question}" style="color:red;">エラーがあれば表示</span>
     <label>画像</label><br>
 	 <input type="file" name="image" accept="image/*" id="imageInput"><br>
 	 <div id="paste_zone">ここに表示されます<br>
 	<img id="preview" style="max-width:300px; display:none;"><br></div>
+
+
+<label>問題形式：</label><br>
+
+  <label>
+    <input type="radio" th:field="*{questionType}" name="questionType" value="multiple" />
+    選択肢形式
+  </label>
+  <label>
+    <input type="radio" th:field="*{questionType}" name="questionType" value="truefalse" />
+    ○×形式
+  </label>
+  
+  
+  <div class="answer-row">
+    <label class="answer-label" data-index="1" for="answer1"></label>
+    <textarea id="answer1" th:field="*{answer1}"></textarea>
+    <label>
+      <input type="radio" name="correctAns" value="1" th:checked="${myNoteForm.correctAns == 1}" />
+      正解
+    </label>
 	<!--バリデーションエラー表示 -->
-	<span th:if="${#fields.hasErrors('question')}" th:errors="*{question}" style="color:red;">エラーがあれば表示</span>
+	<span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
+  </div>
 
-  <h3>回答形式を選ぶ</h3>
-  <label><input type="radio" name="type" value="multiple" checked onchange="toggleAnswers(true)"> 選択肢形式</label>
-  <label><input type="radio" name="type" value="truefalse" onchange="toggleAnswers(false)"> ○×形式</label>
+  <div class="answer-row">
+    <label class="answer-label" data-index="2" for="answer2"></label>
+    <textarea id="answer2" th:field="*{answer2}"></textarea>
+    <label>
+      <input type="radio" name="correctAns" value="2" th:checked="${myNoteForm.correctAns == 2}" />
+      正解
+    </label>
+	<!--バリデーションエラー表示 -->
+	<span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
+  </div>
 
-  <div id="answers" class="multiple">
-    <h3>選択肢の答え（最大４つまで登録できます）</h3>
-    <div>
-        １．<textarea row="5" cols="30"  th:field="*{answer1}"></textarea>
-        <!--バリデーションエラー表示 -->
-        <span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
-        <label><input type="radio" name="correct_ans" value="1" checked> 正解</label>
-    </div>
-    <div>
-        ２．<textarea row="5" cols="30"  th:field="*{answer2}"></textarea>
-        <!--バリデーションエラー表示 -->
-        <span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
-        <label><input type="radio" name="correct_ans" value="2"> 正解</label>
-    </div>
-    <div>
-        ３．<textarea row="5" cols="30"  th:field="*{answer3}"></textarea>
-        <label><input type="radio" name="correct_ans" value="3"> 正解</label>
-    </div>
-    <div>
-        ４．<textarea row="5" cols="30"  th:field="*{answer4}"></textarea>
-        <label><input type="radio" name="correct_ans" value="4"> 正解</label>
-    </div>
-  </div><!--//multipleエリア-->
+  <!-- answer3・answer4は表示制御あり -->
+  <div class="answer-row" id="answer3Block" style="display:none;">
+    <label class="answer-label" data-index="3" for="answer3"></label>
+    <textarea id="answer3" th:field="*{answer3}"></textarea>
+    <label>
+      <input type="radio" name="correctAns" value="3" th:checked="${myNoteForm.correctAns == 3}" />
+      正解
+    </label>
+  </div>
 
-  <div id="truefalse" style="display:none;">
-    <div class="maru">
-	    <p>〇の答え</p>
-	    <textarea row="5" cols="30"  th:field="*{answer1}"></textarea>
-	    <!--バリデーションエラー表示 -->
-	    <span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
-    </div>
-    <div class="batsu">
-	    <p>×の答え</p>
-	    <textarea row="5" cols="30"  th:field="*{answer2}"></textarea>
-	    <!--バリデーションエラー表示 -->
-	    <span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
-    </div>
-  </div><!--//truefalseエリア-->
-
-  <h3>カテゴリー</h3>
-  <select name="category_id">
-    <option value="1">一般知識</option>
-    <option value="2">歴史</option>
-    <option value="3">理科</option>
-    <!-- 必要に応じて追加 -->
-  </select>
-
-  <h3>公開設定</h3>
-  <label><input type="checkbox" name="hide" value="1"> 非公開にする</label><br><br>
-
+  <div class="answer-row" id="answer4Block" style="display:none;">
+    <label class="answer-label" data-index="4" for="answer4"></label>
+    <textarea id="answer4" th:field="*{answer4}"></textarea>
+    <label>
+      <input type="radio" name="correctAns" value="4" th:checked="${myNoteForm.correctAns == 4}" />
+      正解
+    </label>
+  </div>
   
   
 <!-- ボタン：登録 OR 編集 -->
@@ -115,7 +114,7 @@
             <p>Copyright &copy; 2025 Anki Appli myNote.</p>
         </footer>
     </div><!--outerWrapper-->
-	
+
 	<script src="/js/script.js"></script>
 </body>
 

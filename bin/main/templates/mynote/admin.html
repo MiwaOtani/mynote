@@ -28,7 +28,10 @@
 
         <main id="main" class="">
             <!-- ここにメインコンテンツ -->
-			設定・管理ページ
+			<h2>設定・管理ページ</h2>
+			<!--Flashメッセージの表示-->
+			<p th:if="${message}" th:text="${message}" style="color: blue;">完了メッセージ</p>
+			<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;">エラーメッセージ</p>
             <!-- //メインコンテンツここまで -->
         </main>
 
