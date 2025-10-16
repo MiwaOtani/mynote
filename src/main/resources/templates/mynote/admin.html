@@ -62,7 +62,7 @@
 						<td><a th:href="@{/mynote/quizzes/{id}(id=${quiz.id})}">詳細</a></td>
 						<td><ul>
 							<li th:each="cat : ${quiz.categories}">
-								<span th:text="${cat.id}">カテゴリID</span>：<span th:text="${cat.name}">カテゴリ名</span>
+								<span th:text="${cat.categoryId}">カテゴリID</span>：<span th:text="${cat.categoryName}">カテゴリ名</span>
 							</li>
 						</ul></td>
 						<td><span th:text="${quiz.history.isCorrect}" th:if="${quiz.history != null and quiz.history.answeredAt != null}"></span></td>
@@ -72,6 +72,7 @@
 						<td th:text="${quiz.isVisible} ? '表示中' : '非表示'"></td>
 						<td>
 							<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
+								<input type="hidden" name="redirectTo" th:value="@{/mynote/admin}" /> <!-- redirectToを変える -->
 								<button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>
 							</form>
 						</td>

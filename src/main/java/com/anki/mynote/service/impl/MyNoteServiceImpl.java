@@ -72,7 +72,7 @@ public class MyNoteServiceImpl implements MyNoteService {
 
 	@Override
 	public void saveQuiz(Quiz quiz) {
-		// TODO 自動生成されたメソッド・スタブ
+		//画像パス保存
 		myNoteMapper.save(quiz);
 	}
 

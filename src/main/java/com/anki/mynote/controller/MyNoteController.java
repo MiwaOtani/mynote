@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anki.mynote.entity.Quiz;
@@ -70,7 +71,7 @@ public class MyNoteController {
 			//回答履歴を表示する（/mynote/history）
 			@GetMapping("/history")
 			public String history(Model model) {
-			    List<Quiz> quizzes = service.findAllQuiz(); // クイズ一覧を取得
+			    List<Quiz> quizzes = service.findAllQuizAdmin(); // クイズ一覧を取得(非表示も含む)
 			    model.addAttribute("quizzes", quizzes);     // テンプレートに渡す
 
 			 // 未回答（answeredAtがnull）を除外
@@ -187,23 +188,40 @@ public class MyNoteController {
 			}
 			//指定されたIDの「問題」を非表示にする（管理ページのみ出現するボタンの処理）
 			@PostMapping("/quizzes/hide/{id}")
-			public String hide(@PathVariable Integer id, Model model) {
+			public String hide(@PathVariable Integer id, Model model,@RequestParam String redirectTo, RedirectAttributes redirectAttributes) {
 				// 非表示処理（表示フラグを false にする）
 				service.hideQuiz(id);
-				model.addAttribute("quizzes", service.findAllQuizAdmin()); // 最新データ再取得
-				model.addAttribute("message", "問題を非表示にしました");
-				return "mynote/admin"; // 同じテンプレートを返す
+				//model.addAttribute("quizzes", service.findAllQuizAdmin()); // 最新データ再取得
+				redirectAttributes.addFlashAttribute("message", "問題を非表示にしました");
+				return "redirect:" + redirectTo;// 同じテンプレートを返す
 			}
 			//指定されたIDの「問題」を再度表示にする（管理ページのみ出現するボタンの処理）
 			@PostMapping("/quizzes/show/{id}")
-			public String show(@PathVariable Integer id, Model model) {
+			public String show(@PathVariable Integer id, Model model, @RequestParam String redirectTo, RedirectAttributes redirectAttributes) {
 				// 表示処理（表示フラグを true にする）
 				service.showQuiz(id);
-				model.addAttribute("quizzes", service.findAllQuizAdmin());
-				model.addAttribute("message", "問題を表示に戻しました");
-				return "mynote/admin";
+				//model.addAttribute("quizzes", service.findAllQuizAdmin());
+				redirectAttributes.addFlashAttribute("message", "問題を表示に戻しました");
+				return "redirect:" + redirectTo;
 			}
 
+
+//			@PostMapping("/quizzes/hide/{id}")
+//			@ResponseBody
+//			public String hide(@PathVariable Integer id, Model model) {
+//			    service.hideQuiz(id);
+////			    model.addAttribute("message", "問題を非表示にしました");
+//			    return "OK";
+//			}
+//
+//			@PostMapping("/quizzes/show/{id}")
+//			@ResponseBody
+//			public String show(@PathVariable Integer id, Model model) {
+//			    service.showQuiz(id);
+////			    model.addAttribute("message", "問題を表示に戻しました");
+//			    return "OK";
+//			}
+			
 //			//トグル型
 //			@PostMapping("/toggle/{id}")
 //			public String toggleVisibility(@PathVariable Integer id, RedirectAttributes attributes) {

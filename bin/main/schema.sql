@@ -27,7 +27,7 @@ CREATE TABLE quizzes (
 );
 
 -- 回答履歴を格納するテーブル
-CREATE TABLE answer_history (
+CREATE TABLE history (
     quiz_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '外部キー：quizzes.idを参照'
     ,is_correct TINYINT COMMENT '解答フラグ（0：間違った   1：正解した）'
     ,answered_at DATETIME

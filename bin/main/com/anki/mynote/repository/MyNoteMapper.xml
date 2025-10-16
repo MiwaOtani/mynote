@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.anki.mynote.repository.MyNoteMapper">
-	<!--問題と回答履歴：1対1の関係-->
 	<resultMap id="QuizWithAnserResult" type="com.anki.mynote.entity.Quiz">
 		<id property="id" column="id" />
 		<result property="question" column="question" />
@@ -13,54 +12,34 @@
 		<result property="categoryId" column="category_id" />
 		<result property="imagePath" column="image_path" />
 		<result property="isVisible" column="is_visible" />
+		<!-- associationが先 --><!--問題と回答履歴：1対1の関係-->
 		<association property="history" javaType="com.anki.mynote.entity.History">
-			<id property="id" column="id" /><!-- column="quiz_id"から修正  -->
+			<id property="quizId" column="quiz_id" />
 			<result property="isCorrect" column="is_correct" />
 			<result property="answeredAt" column="answered_at" />
 		</association>
-		<!-- collectionは最後 -->
+		<!-- collectionは最後 --><!--問題とカテゴリ：1対多の関係-->
 	<collection property="categories" ofType="com.anki.mynote.entity.Category">
-		<id property="id" column="category_id" />
-		<result property="name" column="category_name" />
+		<id property="categoryId" column="category_id" />
+		<result property="categoryName" column="category_name" />
 	</collection>
 	</resultMap>
-	<!--問題とカテゴリ：1対多の関係-->
-	<resultMap id="QuizWithCategoryResult" type="com.anki.mynote.entity.Quiz">
-		<id property="id" column="id" />
-		<result property="question" column="question" />
-		<result property="answer1" column="answer_1" />
-		<result property="answer2" column="answer_2" />
-		<result property="answer3" column="answer_3" />
-		<result property="answer4" column="answer_4" />
-		<result property="correctAns" column="correct_ans" />
-		<result property="categoryId" column="category_id" />
-		<result property="imagePath" column="image_path" />
-		<result property="isVisible" column="is_visible" />
-	<!-- associationが先 -->
-	<association property="history" javaType="com.anki.mynote.entity.History">
-		<id property="id" column="quiz_id" /><!-- column="quiz_id"から修正  -->
-		<result property="isCorrect" column="is_correct" />
-		<result property="answeredAt" column="answered_at" />
-	</association>
-	<!-- collectionは最後 -->
-	<collection property="categories" ofType="com.anki.mynote.entity.Category">
-		<id property="id" column="category_id" /><!-- エイリアスを一致させる  -->
-		<result property="name" column="category_name" /><!-- c.name as category_nameとしたならcolumn="category_name"とする  -->
-	</collection>
-</resultMap>
+<!-- エイリアスを一致させる　例： c.name as category_nameとしたならcolumn="category_name"とする -->
 	<!--全件検索
 	<select id="selectAll" resultType="com.anki.mynote.entity.Quiz">
 		SELECT id, question, image_path as imagePath, answer_1 as answer1, answer_2 as answer2, answer_3 as answer3, 
 		answer_4 as answer4, correct_ans as correctAns, category_id as categoryId FROM quizzes WHERE is_visible = 1
 	</select>-->
-	<select id="selectAll" resultMap="QuizWithAnserResult"><!-- テーブル名：answer_historyから修正  -->
+	
+	<!--全件検索：非表示は含まない -->
+	<select id="selectAll" resultMap="QuizWithAnserResult"><!-- テーブル名：answer_historyからhistoryに修正  -->
 		SELECT 
 		q.id, q.question, q.image_path, q.answer_1, q.answer_2, q.answer_3, q.answer_4, q.correct_ans, q.category_id,
-		c.id as category_id, c.name as category_name, 
-		h.id as quiz_id, h.is_correct as is_correct, h.answered_at as answered_at
+		c.category_id, c.category_name, 
+		h.quiz_id, h.is_correct, h.answered_at 
 		FROM quizzes q
-		LEFT JOIN categories c ON q.category_id = c.id
-		LEFT JOIN history h ON q.id = h.id
+		LEFT JOIN categories c ON q.category_id = c.category_id
+		LEFT JOIN history h ON q.id = h.quiz_id
 		WHERE is_visible = 1
 		ORDER BY q.id
 	</select>
@@ -68,11 +47,11 @@
 	<select id="selectAllAdmin" resultMap="QuizWithAnserResult">
 		SELECT 
 		q.id, q.question, q.image_path, q.answer_1, q.answer_2, q.answer_3, q.answer_4, q.correct_ans, q.category_id, q.is_visible,
-		c.id as category_id, c.name as category_name, 
-		h.id as quiz_id, h.is_correct as is_correct, h.answered_at as answered_at
+		c.category_id, c.category_name, 
+		h.quiz_id, h.is_correct, h.answered_at 
 		FROM quizzes q
-		LEFT JOIN categories c ON q.category_id = c.id
-		LEFT JOIN history h ON q.id = h.id
+		LEFT JOIN categories c ON q.category_id = c.category_id
+		LEFT JOIN history h ON q.id = h.quiz_id
 		ORDER BY q.id
 	</select>
 	<!--1件検索：あえてvisible指定なし
@@ -80,14 +59,14 @@
 		SELECT id, question, image_path as imagePath, answer_1 as answer1, answer_2 as answer2, answer_3 as answer3, 
 		answer_4 as answer4, correct_ans as correctAns, category_id as categoryId FROM quizzes WHERE id = #{id} 
 	</select>-->
-	<select id="selectById" resultMap="QuizWithCategoryResult">
+	<select id="selectById" resultMap="QuizWithAnserResult">
 		SELECT 
-		q.id, q.question, q.image_path, q.answer_1, q.answer_2, q.answer_3, q.answer_4, q.correct_ans, q.category_id,
-		c.id as category_id, c.name as category_name, 
-		h.id as quiz_id, h.is_correct as is_correct, h.answered_at as answered_at
+		q.id, q.question, q.image_path, q.answer_1, q.answer_2, q.answer_3, q.answer_4, q.correct_ans, q.category_id, q.is_visible,
+		c.category_id, c.category_name, 
+		h.quiz_id, h.is_correct, h.answered_at 
 		FROM quizzes q
-		LEFT JOIN categories c ON q.category_id = c.id
-		LEFT JOIN history h ON q.id = h.id
+		LEFT JOIN categories c ON q.category_id = c.category_id
+		LEFT JOIN history h ON q.id = h.quiz_id
 		WHERE q.id=#{id}
 	</select>
 	<!--登録-->

@@ -72,3 +72,29 @@ document.getElementById('paste_zone').addEventListener('paste', function (e) {
     }
   }
 });
+
+//表示非表示：トグル切替
+//function toggleVisibility(button) {
+//    const id = button.getAttribute("data-id");
+//    const isVisible = button.getAttribute("data-visible") === "true";
+//    const url = `/mynote/quizzes/${isVisible ? 'hide' : 'show'}/${id}`;
+//
+//    fetch(url, {
+//        method: 'POST',
+//        headers: {
+//            'X-Requested-With': 'XMLHttpRequest',
+//            'Content-Type': 'application/json'
+//        }
+//    })
+//    .then(response => {
+//        if (!response.ok) throw new Error("通信失敗");
+//        // 表示状態を切り替え
+//        button.setAttribute("data-visible", (!isVisible).toString());
+//        button.textContent = isVisible ? "表示に戻す" : "非表示にする";
+//    })
+//    .catch(error => {
+//        alert("切り替えに失敗しました");
+//        console.error(error);
+//    });
+//}
+

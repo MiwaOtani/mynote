@@ -30,6 +30,10 @@
             <!-- ここにメインコンテンツ -->
 
 			<h2>クイズ詳細</h2>
+			<!--Flashメッセージの表示-->
+			<p th:if="${message}" th:text="${message}" style="color: blue;">完了メッセージ</p>
+			<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;">エラーメッセージ</p>
+			
 			<p th:text="${quiz.question}"></p>
 			<img th:if="${quiz.imagePath}" th:src="@{${quiz.imagePath}}" alt="問題画像">
 				<table border="1">
@@ -74,11 +78,11 @@
 								<h3>カテゴリ</h3>
 								<ul>
 									<li th:each="cat : ${quiz.categories}">
-										<span th:text="${cat.id}">カテゴリID</span>：<span th:text="${cat.name}">カテゴリ名</span>
+										<span th:text="${cat.categoryId}">カテゴリID</span>：<span th:text="${cat.categoryName}">カテゴリ名</span>
 									</li>
 								</ul>
 							</div>
-						  <span th:each="cat : ${quiz.categories}" th:text="${cat.name}">カテゴリ名</span>
+						  <span th:each="cat : ${quiz.categories}" th:text="${cat.categoryName}">カテゴリ名</span>
 						</td>
 <!--						<td th:text="${quiz.categories?.name}"></td>-->
 					</tr>
@@ -89,12 +93,14 @@
 				</table>
 
 				<a th:href="@{/mynote/quizzes/edit/{id}(id=${quiz.id})}">編集する</a>
-				<form th:action="@{/mynote/quizzes/delete/{id}(id=${quiz.id})}" method="post">
-					<input type="submit" value="削除">
-				</form>
-				<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
-				      <button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>
-				    </form>
+<!--				<form th:action="@{/mynote/quizzes/delete/{id}(id=${quiz.id})}" method="post">-->
+<!--					<input type="submit" value="削除">-->
+<!--				</form>-->
+<p th:text="${quiz.isVisible} ? '表示中' : '非表示'"></p>
+					<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
+						<input type="hidden" name="redirectTo" th:value="@{/mynote/quizzes/{id}}" /> <!-- redirectToを変える -->
+						<button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>
+					</form>
 					
 			<!--	<form action="/todos/toggle/${todo.id}" method="post">-->
 			<!--		<button type="submit">-->
@@ -109,14 +115,6 @@
 			<!--		</button>-->
 			<!--	</form>-->
 				
-				サンプル
-				<table>
-				<tr th:each="quiz : ${quizzes}">
-				  <td th:text="${quiz.question}">問題</td>
-				  <td th:text="${quiz.answer1}">答え1</td>
-				  <td th:text="${quiz.answer2}">答え2</td>
-				</tr>
-				</table>
 				
 				<a th:href="@{/mynote/quizzes}">クイズ一覧へ</a>
             <!-- //メインコンテンツここまで -->
