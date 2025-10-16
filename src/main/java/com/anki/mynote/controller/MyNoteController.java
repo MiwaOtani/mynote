@@ -1,5 +1,8 @@
 package com.anki.mynote.controller;
 
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -67,9 +70,37 @@ public class MyNoteController {
 			//回答履歴を表示する（/mynote/history）
 			@GetMapping("/history")
 			public String history(Model model) {
-				model.addAttribute("quizzes", service.findAllQuiz());//ここは要検討
+			    List<Quiz> quizzes = service.findAllQuiz(); // クイズ一覧を取得
+			    model.addAttribute("quizzes", quizzes);     // テンプレートに渡す
+
+			 // 未回答（answeredAtがnull）を除外
+			    List<Quiz> answeredQuizzes = quizzes.stream()
+			        .filter(q -> q.getHistory() != null && q.getHistory().getAnsweredAt() != null)
+			        .toList();
+
+			    int total = answeredQuizzes.size();// クイズの総数
+			    int correct = (int) answeredQuizzes.stream()
+			        .filter(q -> q.getHistory().isCorrect())
+			        .count();// 正解数
+
+			    double rate = total > 0 ? (double) correct / total * 100 : 0.0; // 0除算防止
+			    model.addAttribute("correctRate", rate); // 正答率を渡す
+			    
+			    // ★ひとことリスト★
+			    List<String> messages = List.of(
+			        "ねこでも一回は立ち上がるよ？",
+			        "間違いは食事のチャンス！",
+			        "寝たほうがいいんじゃない？",
+			        "焦らず、じらす",
+			        "猫ならできる！"
+			    );
+			    // ランダムに1つ選ぶ
+			    String randomMessage = messages.get(new Random().nextInt(messages.size()));
+			    model.addAttribute("dailyMessage", randomMessage);
+
 				return "mynote/history"; //mynote/history.html を表示
 			}
+			
 			
 			//*****登録・更新処理追加*****//
 			//新規登録画面を表示する
@@ -159,7 +190,7 @@ public class MyNoteController {
 			public String hide(@PathVariable Integer id, Model model) {
 				// 非表示処理（表示フラグを false にする）
 				service.hideQuiz(id);
-				model.addAttribute("Quizs", service.findAllQuizAdmin()); // 最新データ再取得
+				model.addAttribute("quizzes", service.findAllQuizAdmin()); // 最新データ再取得
 				model.addAttribute("message", "問題を非表示にしました");
 				return "mynote/admin"; // 同じテンプレートを返す
 			}
@@ -168,7 +199,7 @@ public class MyNoteController {
 			public String show(@PathVariable Integer id, Model model) {
 				// 表示処理（表示フラグを true にする）
 				service.showQuiz(id);
-				model.addAttribute("Quizs", service.findAllQuizAdmin());
+				model.addAttribute("quizzes", service.findAllQuizAdmin());
 				model.addAttribute("message", "問題を表示に戻しました");
 				return "mynote/admin";
 			}

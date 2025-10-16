@@ -66,14 +66,26 @@
 						<th>カテゴリ</th>
 						<td th:text="${quiz.categoryId}"></td>
 					</tr>
-			<!--		<tr>-->
-			<!--			<th>カテゴリ名</th>-->
-			<!--			<td th:text="${quiz.categoryName}"></td>-->
-			<!--		</tr>-->
-			<!--		<tr>-->
-			<!--			<th>更新日時</th>-->
-			<!--			<td th:text="${history.answeredAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>-->
-			<!--		</tr>-->
+					
+					<tr>
+						<th>カテゴリ名</th>
+						<td>
+
+								<h3>カテゴリ</h3>
+								<ul>
+									<li th:each="cat : ${quiz.categories}">
+										<span th:text="${cat.id}">カテゴリID</span>：<span th:text="${cat.name}">カテゴリ名</span>
+									</li>
+								</ul>
+							</div>
+						  <span th:each="cat : ${quiz.categories}" th:text="${cat.name}">カテゴリ名</span>
+						</td>
+<!--						<td th:text="${quiz.categories?.name}"></td>-->
+					</tr>
+					<tr>
+						<th>回答日時</th>
+						<td th:if="${quiz.history != null and quiz.history.answeredAt != null}" th:text="${quiz.history.answeredAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyy/MM/dd HH:mm:ss'))}"></td>
+					</tr>
 				</table>
 
 				<a th:href="@{/mynote/quizzes/edit/{id}(id=${quiz.id})}">編集する</a>

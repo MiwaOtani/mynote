@@ -18,13 +18,14 @@ public class Quiz {
 	private String answer4;
 	private Integer correctAns;
 	private Integer categoryId;
+	// 画像の保存先パス
+	private String imagePath; 
 	//表示フラグ（true: 表示、false: 非表示）
 	private boolean isVisible;
+	
 	//回答履歴と１対１の関係
 	private History history;
 	//カテゴリと１対多の関係
 	private List<Category> categories;
-	// 画像の保存先パス
-	private String imagePath; 
 
 }

@@ -29,6 +29,44 @@
         <main id="main" class="">
             <!-- ここにメインコンテンツ -->
 			<h2>勉強した履歴のページ</h2>
+			<p>正答率：<span th:text="${correctRate}">70</span>%</p>
+<br>
+			<p>＜正誤表パターン＞</p>
+			<table>
+			  <tr>
+			    <th>問題一覧</th>
+			    <th>正誤</th>
+			  </tr>
+			  
+			  <tr th:each="quiz : ${quizzes}">
+			    <td th:text="${quiz.question}">問題文</td>
+				<td>
+				  <span th:if="${quiz.history != null and quiz.history.answeredAt != null}"
+				        th:text="${quiz.history.isCorrect ? '○' : '×'}">○</span>
+				  <span th:if="${quiz.history == null or quiz.history.answeredAt == null}">未回答</span>
+				</td>
+			</tr>
+			</table>
+			
+			<p>＜未回答を外して集計＞</p>
+			<p>正答率：<span th:text="${correctRate}">70</span>%</p>
+
+			<div th:each="quiz : ${quizzes}">
+			  <div th:if="${quiz.history != null and quiz.history.answeredAt != null}">
+			    <p th:text="${quiz.question}">問題文</p>
+			    <p th:text="${quiz.history.isCorrect ? '○' : '×'}">○<span th:if="${quiz.history == null}">未回答</span></p>
+			  </div>
+			</div>
+			
+			
+			<h3>全体の正解率</h3>
+			<p><span th:text="${correctRate}">70</span>%</p>
+
+			<h3>カテゴリ別正解率</h3>
+			<!-- カテゴリ別の集計があればここに -->
+
+			<h3>今日のひとこと</h3>
+			<p th:text="${dailyMessage}">猫と暮らす</p>
 			
             <!-- //メインコンテンツここまで -->
         </main>
