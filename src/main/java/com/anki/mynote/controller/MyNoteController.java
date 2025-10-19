@@ -1,8 +1,10 @@
 package com.anki.mynote.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.anki.mynote.entity.History;
 import com.anki.mynote.entity.Quiz;
 import com.anki.mynote.form.MyNoteForm;
 import com.anki.mynote.helper.MyNoteHelper;
@@ -30,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MyNoteController {
 	//DI
+	@Autowired
 	private final MyNoteService service;
 	
 	// トップページ（/mynote）
@@ -57,6 +61,7 @@ public class MyNoteController {
 				if (quiz != null) {
 					//対象データがある場合はモデルに格納
 					model.addAttribute("quiz", quiz);
+					model.addAttribute("myNoteForm", new MyNoteForm()); // ← これが必要！
 					System.out.println("imagePath = " + quiz.getImagePath());
 
 					return "mynote/detail";
@@ -67,6 +72,72 @@ public class MyNoteController {
 					return "redirect:/mynote/list";
 				}
 			}
+			
+			@PostMapping("/quizzes/check/{id}")
+			public String checkAnswer(@PathVariable Integer id,
+			                          @RequestParam("ans") int selected,
+			                          RedirectAttributes redirectAttributes) {
+
+			    Quiz quiz = service.findByIdQuiz(id);
+			    boolean isCorrect = (selected == quiz.getCorrectAns());
+			    // 履歴を登録
+			    History history = new History(id, isCorrect, LocalDateTime.now());
+			    service.insertOrUpdateHistory(history);
+
+			    redirectAttributes.addFlashAttribute("selected", selected);
+			    redirectAttributes.addFlashAttribute("isCorrect", isCorrect);
+
+			    return "redirect:/mynote/quizzes/" + id;
+			}
+			
+//			
+//			@PostMapping("/quizzes/check/{id}")
+//			public String checkAnswer(@PathVariable Integer id,
+//			                          @Valid MyNoteForm form,
+//			                          BindingResult result,
+//			                          Model model,
+//			                          RedirectAttributes redirectAttributes) {
+//
+//			    Quiz quiz = service.findByIdQuiz(id);
+//
+////			    if (result.hasErrors()) {
+////			        model.addAttribute("quiz", quiz);
+////			        model.addAttribute("myNoteForm", form);
+////			        return "mynote/detail";
+////			    }
+//
+//			    int selected = form.getAns(); // ← ここで取得すればOK
+//			    boolean isCorrect = (selected == quiz.getCorrectAns());
+//
+//			    redirectAttributes.addFlashAttribute("quiz", quiz);
+//			    redirectAttributes.addFlashAttribute("selected", selected);
+//			    redirectAttributes.addFlashAttribute("isCorrect", isCorrect);
+//
+//			    return "redirect:/mynote/quizzes/" + id;
+//			}
+			
+//			@PostMapping("/quizzes/check/{id}")
+//			public String checkAnswer(@RequestParam("ans") int selected,
+//					@PathVariable Integer id,
+//                    @Valid MyNoteForm form,
+//                    BindingResult result,
+//                    Model model,
+//                    RedirectAttributes redirectAttributes) {
+//if (result.hasErrors()) {
+//  Quiz quiz = service.findByIdQuiz(id);
+//  model.addAttribute("quiz", quiz);
+//  model.addAttribute("myNoteForm", form);
+//  return "mynote/detail"; // ← エラー時に戻るテンプレート
+//}
+//
+//			    Quiz quiz = service.findByIdQuiz(id);
+//			    boolean isCorrect = (selected == quiz.getCorrectAns());
+//			    redirectAttributes.addFlashAttribute("quiz", quiz);
+//			    redirectAttributes.addFlashAttribute("selected", selected);
+//			    redirectAttributes.addFlashAttribute("isCorrect", isCorrect);
+//			    return "redirect:/mynote/quizzes/" + id;
+//			}
+
 			
 			//回答履歴を表示する（/mynote/history）
 			@GetMapping("/history")
@@ -192,7 +263,7 @@ public class MyNoteController {
 				// 非表示処理（表示フラグを false にする）
 				service.hideQuiz(id);
 				//model.addAttribute("quizzes", service.findAllQuizAdmin()); // 最新データ再取得
-				redirectAttributes.addFlashAttribute("message", "問題を非表示にしました");
+				redirectAttributes.addFlashAttribute("message2", "問題を非表示にしました");
 				return "redirect:" + redirectTo;// 同じテンプレートを返す
 			}
 			//指定されたIDの「問題」を再度表示にする（管理ページのみ出現するボタンの処理）
@@ -201,7 +272,7 @@ public class MyNoteController {
 				// 表示処理（表示フラグを true にする）
 				service.showQuiz(id);
 				//model.addAttribute("quizzes", service.findAllQuizAdmin());
-				redirectAttributes.addFlashAttribute("message", "問題を表示に戻しました");
+				redirectAttributes.addFlashAttribute("message2", "問題を表示に戻しました");
 				return "redirect:" + redirectTo;
 			}
 

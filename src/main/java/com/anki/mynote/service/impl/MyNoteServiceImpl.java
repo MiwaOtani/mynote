@@ -2,9 +2,11 @@ package com.anki.mynote.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.anki.mynote.entity.History;
 import com.anki.mynote.entity.Quiz;
 import com.anki.mynote.repository.MyNoteMapper;
 import com.anki.mynote.service.MyNoteService;
@@ -20,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class MyNoteServiceImpl implements MyNoteService {
 	
 	//DI
+	@Autowired
 	private final MyNoteMapper myNoteMapper;
 
 	@Override
@@ -74,6 +77,33 @@ public class MyNoteServiceImpl implements MyNoteService {
 	public void saveQuiz(Quiz quiz) {
 		//画像パス保存
 		myNoteMapper.save(quiz);
+	}
+
+	@Override
+	public void insertHistoryQuiz(History history) {
+		myNoteMapper.insertHistory(history);
+	}
+
+	@Override
+	public void updateHistoryQuiz(History history) {
+		myNoteMapper.updateHistory(history);
+	}
+
+	@Override
+	public History selectHistoryByQuizId(Integer quizId) {
+		return myNoteMapper.selectHistoryByQuizId(quizId);
+	}
+	@Override
+	public void insertOrUpdateHistory(History history) {
+	    History existing = myNoteMapper.selectHistoryByQuizId(history.getQuizId());
+	    //System.out.println("履歴検索結果: " + (existing != null ? existing.toString() : "なし"));
+	    if (existing != null) {
+	        //System.out.println("履歴あり → UPDATE: " + history);
+	        myNoteMapper.updateHistory(history);
+	    } else {
+	        //System.out.println("履歴なし → INSERT: " + history);
+	        myNoteMapper.insertHistory(history);
+	    }
 	}
 
 }

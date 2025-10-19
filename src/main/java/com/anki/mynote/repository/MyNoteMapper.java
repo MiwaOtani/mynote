@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.anki.mynote.entity.History;
 import com.anki.mynote.entity.Quiz;
 
 @Mapper
@@ -27,4 +28,8 @@ public interface MyNoteMapper {
 		void show(@Param("id") Integer id);
 		//画像パスを保存する
 		void save(Quiz quiz);
+		//履歴を取得する
+		void insertHistory(History history);
+	    void updateHistory(History history);
+	    History selectHistoryByQuizId(@Param("quizId") Integer quizId);
 }

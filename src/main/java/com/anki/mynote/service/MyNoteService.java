@@ -2,6 +2,9 @@ package com.anki.mynote.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.anki.mynote.entity.History;
 import com.anki.mynote.entity.Quiz;
 
 public interface MyNoteService {
@@ -23,4 +26,9 @@ public interface MyNoteService {
 	void showQuiz(Integer id);
 	//画像パスを保存する
 	void saveQuiz(Quiz quiz);
+	//履歴を取得する
+	void insertHistoryQuiz(History history);
+	void updateHistoryQuiz(History history);
+    History selectHistoryByQuizId(@Param("quizId") Integer quizId);
+	void insertOrUpdateHistory(History history);
 }

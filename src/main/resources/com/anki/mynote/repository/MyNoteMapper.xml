@@ -96,4 +96,20 @@
 	  INSERT INTO quizzes (id, question, answer_1, answer_2, answer_3, answer_4, correct_ans, category_id, is_visible, image_path)
 	  VALUES (#{id}, #{question}, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{correctAns}, #{categoryId}, #{isVisible}, #{imagePath})
 	</insert>	
+	<!-- resultMapを使わないエイリアスつけるパターン-->
+	<select id="selectHistoryByQuizId" resultType="com.anki.mynote.entity.History">
+	  SELECT quiz_id as quizId, is_correct as isCorrect, answered_at as answeredAt
+	  FROM history
+	  WHERE quiz_id = #{quizId}
+	</select>
+	<insert id="insertHistory" parameterType="com.anki.mynote.entity.History">
+	  INSERT INTO history (quiz_id, is_correct, answered_at)
+	  VALUES (#{quizId}, #{isCorrect}, CURRENT_TIMESTAMP)
+	</insert>	
+	<update id="updateHistory" parameterType="com.anki.mynote.entity.History">
+	  UPDATE history 
+	  SET is_correct = #{isCorrect}, answered_at = CURRENT_TIMESTAMP
+	  WHERE quiz_id = #{quizId}
+	</update>
+
 </mapper>

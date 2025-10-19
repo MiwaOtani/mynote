@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const answer3Textarea = document.getElementById("answer3");
   const answer4Textarea = document.getElementById("answer4");
 
+  // ここで初期値を保存
+    let originalAnswer1 = answer1.value;
+    let originalAnswer2 = answer2.value;
+
   function updateQuestionTypeUI() {
     const selected = document.querySelector('input[name="questionType"]:checked');
     const type = selected ? selected.value : null;
@@ -20,13 +24,30 @@ document.addEventListener("DOMContentLoaded", function () {
     form.classList.toggle("truefalse", type === "truefalse");
 
     if (type === "truefalse") {
+		// 元の値を保存
+		  originalAnswer1 = answer1.value;
+		  originalAnswer2 = answer2.value;
+
+		  // ◯✕を自動入力
+		  answer1.value = '◯';
+		  answer2.value = '✕';
+		  answer1.readOnly = true;
+		  answer2.readOnly = true;
+
       // ◯✕形式なら 3・4 を強制的に非表示
       answer3Block.style.display = "none";
       answer4Block.style.display = "none";
+//	  document.getElementById('answer1').readOnly = true;
+//	  document.getElementById('answer2').readOnly = true;
     } else {
       // multiple形式なら常に表示（空欄でも）
       answer3Block.style.display = "block";
       answer4Block.style.display = "block";
+	  // 元の値を復元
+	    answer1.value = originalAnswer1;
+	    answer2.value = originalAnswer2;
+	    answer1.readOnly = false;
+	    answer2.readOnly = false;
     }
   }
 
@@ -72,6 +93,77 @@ document.getElementById('paste_zone').addEventListener('paste', function (e) {
     }
   }
 });
+
+//ポップアップ表示
+function confirmBreak() {
+  document.getElementById('popup').style.display = 'block';
+}
+
+//function showPopup() {
+//  document.getElementById('popup2').classList.remove('hidden');
+//  
+//  setTimeout(() => {
+//      document.getElementById('popup2').classList.add('fadeout');
+//    }, 2000);
+//
+//    setTimeout(() => {
+//      document.getElementById('popup2').classList.add('hidden');
+//      document.getElementById('popup2').classList.remove('fadeout');
+//    }, 3000);
+//}
+
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+  document.getElementById('popup2').classList.add('hidden');
+}
+//function submitHideForm() {
+//  document.querySelector('form').submit(); // もしくは document.getElementById('hideForm').submit();
+//}
+
+function goToHistory() {
+  window.location.href = '/mynote/history'; // 履歴ページなどに遷移
+}
+
+function showPopup(...ids) {
+  ids.forEach(id => {
+    const popup = document.getElementById(id);
+    const message = popup?.querySelector('p, span');
+
+    if (popup && message && message.textContent.trim() !== '') {
+      popup.classList.remove('hidden');
+
+      setTimeout(() => {
+        popup.classList.add('fadeout');
+      }, 2000);
+
+      setTimeout(() => {
+        popup.classList.add('hidden');
+        popup.classList.remove('fadeout');
+      }, 3000);
+    }
+  });
+}
+//
+//function showAnswerPopup() {
+//  const popup = document.getElementById('answerPopup');
+//  const hasAnswer = popup?.querySelector('p');
+//
+//  if (hasAnswer && hasAnswer.textContent.trim() !== '') {
+//    popup.classList.remove('hidden');
+//
+//    setTimeout(() => {
+//      popup.classList.add('fadeout');
+//    }, 2000);
+//
+//    setTimeout(() => {
+//      popup.classList.add('hidden');
+//      popup.classList.remove('fadeout');
+//    }, 3000);
+//  }
+//}
+
+
+
 
 //表示非表示：トグル切替
 //function toggleVisibility(button) {

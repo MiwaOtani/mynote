@@ -58,7 +58,7 @@
   </label>
   
   
-  <div class="answer-row">
+  <div class="answer-row" id="answer1Block">
     <label class="answer-label" data-index="1" for="answer1"></label>
     <textarea id="answer1" th:field="*{answer1}"></textarea>
     <label>
@@ -69,7 +69,7 @@
 	<span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
   </div>
 
-  <div class="answer-row">
+  <div class="answer-row" id="answer2Block" >
     <label class="answer-label" data-index="2" for="answer2"></label>
     <textarea id="answer2" th:field="*{answer2}"></textarea>
     <label>
