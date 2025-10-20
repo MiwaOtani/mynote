@@ -128,19 +128,27 @@ function showPopup(...ids) {
   ids.forEach(id => {
     const popup = document.getElementById(id);
     const message = popup?.querySelector('p, span');
+	console.log('popup:', popup);
+	console.log('message:', message?.textContent);
+
 
     if (popup && message && message.textContent.trim() !== '') {
       popup.classList.remove('hidden');
+	  console.log('表示されました');
 
       setTimeout(() => {
+		console.log('フェードアウト開始');
         popup.classList.add('fadeout');
       }, 2000);
 
       setTimeout(() => {
         popup.classList.add('hidden');
         popup.classList.remove('fadeout');
+		console.log('非表示完了');
       }, 3000);
-    }
+    } else {
+		console.log('条件に合わず表示されません');
+	}
   });
 }
 //

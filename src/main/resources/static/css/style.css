@@ -86,6 +86,9 @@ li {
 a {
   text-decoration: none;
 }
+a:active {
+  color:hotpink;
+}
 
 img,
 source {
@@ -237,7 +240,7 @@ td {
   color: #bbb;
 }
 .hidden {
-  display: none;
+/*  display: none;*/
 }
 .visible {
   display: block;
@@ -300,12 +303,38 @@ section .study {
 .choice button {
 	text-align: left;
 	margin: 5px 0;
-	  padding: 10px;
-	  background-color: #ddd;
-	  border-radius: 5px;
-	  border: none;
-	  width: 100%;
+	padding: 10px;
+	background-color: #e4f3ff;
+  border-radius: 5px;
+  border: 2px solid #3F51B5;
+  border-left: 15px solid #3F51B5;
+  width: 100%;
 }
+.choice-1, .choice-2, .choice-3, .choice-4 {
+	position: relative;
+}
+.choice-1::before,
+.choice-2::before,
+.choice-3::before,
+.choice-4::before {
+	position: absolute;
+	left: 0;
+	top: 25%;
+	color: #FFF;
+}
+.choice-1::before {
+  content: "１";
+}
+.choice-2::before {
+  content: "２";
+}
+.choice-3::before {
+  content: "３";
+}
+.choice-4::before {
+  content: "４ ";
+}
+
 .heading {
 	display: flex;
 	justify-content: space-between;
@@ -324,8 +353,9 @@ section .study {
 	display: flex;
     gap: 5px;
 }
-.category span {
-	background: url(/images/tag3.png) no-repeat;
+.category span,
+.q-cate-list span  {
+	background: url(/images/tag4.png) no-repeat;
     background-position: left;
 	background-size: 110px;
     color: #FFF;
@@ -333,16 +363,16 @@ section .study {
     padding: 5px 5px 5px 20px;
     font-weight: 400;
 	border-radius: 6px;
-	cursor: pointer;
+/*	cursor: pointer;*/
 }
 .edit {
 	
 }
 
-.try_again {
+.try-again {
 	
 }
-.brake_time {
+.brake-time {
 	
 }
 .visible {
@@ -350,40 +380,114 @@ section .study {
 }
 /*勉強するページここまで*/
 
+/*問題一覧ページ*/
+.question-list  {
+/*	display: flex;*/
+}
+.question-list li {
+	margin: 20px 0;
+}
+.question-list .detail a {
+	
+}
+.q-detail {
+	border: 5px dotted #ddd;
+    border-radius: 10px;
+    padding: 10px;
+	background-color: aliceblue;
+}
+.q-link {
+	margin-bottom: 10px;
+}
+.q-cate-list {
+/*	text-align: right;*/
+	margin: 10px 0;
+	padding: 0;
+}
+.q-cate-list li {
+	padding: 0;
+	margin: 0;
+	zoom: 0.85;
+}
+.q-cate-list small {
+	color: #03a9f4;
+	font-size: 0.8em;
+}
 
+.btn-area {
+	display: flex;
+	justify-content: space-between;
+}
+.grid-items {
+	margin: 10px 0 0;;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2列で均等に分ける */
+  /*grid-auto-flow: column;  横方向に並べる */
+  gap: 1rem;
+  align-items: center;
+  justify-content: center; /* 中央揃え（任意） */
+  box-sizing: border-box; 
+
+}
+.grid-items3 {
+  grid-template-columns: repeat(3, 1fr); /* 3列で均等に分ける */
+  gap: 5px;
+  min-height: 50px;
+}
+.nav-btn {
+  
+}
+.nav-btn.wide a {
+	padding: 15px;
+	background-color: #1a92f3;
+}
+.nav-btn button,
+.nav-btn a {
+  width: 100%;
+  max-width: 100%; /* はみ出し防止 */
+  box-sizing: border-box; /*padding や border を含めてwidthに収まる*/
+  display: block;
+  text-align: center;
+}
+
+/*問題一覧ページここまで*/
 
 /*共通パーツ*/
-.nav_btn a {
+.nav-btn a,
+.nav-btn button {
   display: inline-block;
-  margin: 0 5px;
-  padding: 6px 12px;
+/*  margin: 0 5px;*/
+  padding: 10px;
   background-color: #68aeff;
   color: #fff;
-  border-radius: 15px;
+  border-radius: 8px;
   transition: all 0.3s ease;
   cursor: pointer;
   font-weight: 400;
+  border: none;
+  font-size: 14px;
+/* border: 4px dotted #3F51B5;*/
 }
 
-.nav_btn a:hover {
-  transform: translateY(2px);
-  background-color: rgb(0, 0, 255);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-  opacity: 0.85;
-}
+/*.nav-btn a:hover {*/
+/*  transform: translateY(2px);*/
+/*  background-color: rgb(0, 0, 255);*/
+/*  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);*/
+/*  opacity: 0.85;*/
+/*}*/
 .popup {
   position: fixed;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -30%);
   background-color: white;
-  border: 2px solid #444;
+  border: 4px solid #00e2ff;
   padding: 20px;
   z-index: 1000;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
-  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
   text-align: center;
-  font-size: 1.1em;
+  font-size: 0.9em;
 }
 .hidden {
   display: none;
@@ -395,20 +499,21 @@ section .study {
 
 .popup.fadeout {
   animation: fadeOut 1s ease forwards;
+
 }
 .popup button {
-  margin: 10px;
+  margin: 5px 0;
   padding: 8px 16px;
   font-size: 1em;
 }
-.answer_btn {
-background-color: rgb(0, 0, 255);
-  border: 2px solid rgb(0, 0, 255);
-  color: rgb(255, 255, 255);
-  padding: 10px;
-  border-radius: 8px;
-  font-weight: bold;
-}
+/*.answer-btn {*/
+/*background-color: rgb(0, 0, 255);*/
+/*  border: 2px solid rgb(0, 0, 255);*/
+/*  color: rgb(255, 255, 255);*/
+/*  padding: 10px;*/
+/*  border-radius: 8px;*/
+/*  font-weight: bold;*/
+/*}*/
 .correct {
   background-color: #e0ffe0;
   border: 2px solid #4CAF50;
@@ -416,6 +521,18 @@ background-color: rgb(0, 0, 255);
   padding: 10px;
   border-radius: 8px;
   font-weight: bold;
+  margin: 10px 0;
+}
+button.correct {
+  background-color: #d4f4dd;
+  border: 2px solid #4caf50;
+  border-left: 15px solid #4caf50;
+}
+
+button.incorrect {
+  background-color: #fbeaea;
+  border: 2px solid #f44336;
+  border-left: 15px solid #f44336;
 }
 
 .incorrect {
@@ -425,6 +542,7 @@ background-color: rgb(0, 0, 255);
   padding: 10px;
   border-radius: 8px;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 /* ========== メディアクエリ ========== */

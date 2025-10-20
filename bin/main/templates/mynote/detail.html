@@ -47,63 +47,72 @@
 					<img th:if="${quiz.imagePath}" th:src="@{${quiz.imagePath}}" alt="問題画像" width="100%">
 				</div>
 				
+				<div class="answer">
+					<div th:if="${isCorrect != null}"
+					     th:classappend="${isCorrect} ? 'correct' : 'incorrect'">
+					  <p th:text="${isCorrect} ? '🎉 正解！よくできました！' : '😣ざんねん不正解…'"></p>
+					  <div th:if="${isCorrect}">
+					  </div>
+					</div>
+					
 				<div class="choice">
 					<h2>正解をクリック！</h2>
-					<form th:action="@{/mynote/quizzes/check/{id}(id=${quiz.id})}" method="post">
+						
+					<form class="choice-1" th:action="@{/mynote/quizzes/check/{id}(id=${quiz.id})}" method="post">
 					    <input type="hidden" name="ans" value="1"/>
-					    <button type="submit"><span th:text="${quiz.answer1}">答え1</span></button>
+					    <button type="submit" th:classappend="${selected != null and selected == 1} ?
+						(${quiz.correctAns == 1} ? ' correct' : ' incorrect') : ''">
+						<span th:text="${quiz.answer1}">答え1</span></button>
 					  </form>
 					  
-					  <div th:if="${isCorrect != null}"
-					       th:classappend="${isCorrect} ? 'correct' : 'incorrect'">
-					    <p th:text="${isCorrect} ? '正解！' : '不正解…'"></p>
-					    <div th:if="${isCorrect}">
-					      <p>🎉 正解！よくできました！</p>
-					    </div>
-					  </div>
 					  
-					  <form th:action="@{/mynote/quizzes/check/{id}(id=${quiz.id})}" method="post">
+					  <form class="choice-2" th:action="@{/mynote/quizzes/check/{id}(id=${quiz.id})}" method="post">
 					    <input type="hidden" name="ans" value="2"/>
-					    <button type="submit"><span th:text="${quiz.answer2}">答え2</span></button>
+						<button type="submit"	 th:classappend="${selected != null and selected == 2} ?
+						(${quiz.correctAns == 2} ? ' correct' : ' incorrect') : ''">
+						<span th:text="${quiz.answer2}">答え2</span></button>
 					  </form>
-					  <div th:if="${isCorrect != null}"
-					       th:classappend="${isCorrect} ? 'correct' : 'incorrect'">
-					    <p th:text="${isCorrect} ? '正解！' : '不正解…'"></p>
-					    <div th:if="${isCorrect}">
-					      <p>🎉 正解！よくできました！</p>
-					    </div>
-					  </div>
 					  
 					  
 					  <!-- answer3/4 は条件付きで表示-->
-					  <form th:if="${quiz.answer3 != null and !quiz.answer3.isEmpty()}" th:action="@{/mynote/quizzes/check/{id}(id=${quiz.id})}" method="post">
+					  <form class="choice-3" th:if="${quiz.answer3 != null and !quiz.answer3.isEmpty()}" th:action="@{/mynote/quizzes/check/{id}(id=${quiz.id})}" method="post">
 					    <input type="hidden" name="ans" value="3"/>
-					    <button type="submit"><span th:text="${quiz.answer3}">答え3</span></button>
+					    <button type="submit"	 th:classappend="${selected != null and selected == 3} ?
+						(${quiz.correctAns == 3} ? ' correct' : ' incorrect') : ''">
+						<span th:text="${quiz.answer3}">答え3</span></button>
 					  </form>
 	
-					  <form th:if="${quiz.answer4 != null and !quiz.answer4.isEmpty()}" th:action="@{/mynote/quizzes/check/{id}(id=${quiz.id})}" method="post">
+					  <form class="choice-4" th:if="${quiz.answer4 != null and !quiz.answer4.isEmpty()}" th:action="@{/mynote/quizzes/check/{id}(id=${quiz.id})}" method="post">
 					    <input type="hidden" name="ans" value="4"/>
-					    <button type="submit"><span th:text="${quiz.answer4}">答え4</span></button>
+					    <button type="submit" th:classappend="${selected != null and selected == 4} ?
+						(${quiz.correctAns == 4} ? ' correct' : ' incorrect') : ''">
+						<span th:text="${quiz.answer4}">答え4</span></button>
 					  </form>
 				</div>
 				
 				
 				
-				<div id="answerPopup" class="popup hidden">
-				  <div th:if="${isCorrect != null}">
-				    <p th:text="${isCorrect} ? '正解！' : '不正解…'"></p>
-				    <p>あなたの選択: <span th:text="${selected}"></span></p>
-				    <p>正解は: <span th:text="${quiz.correctAns}"></span></p>
-				  </div>
-				</div>
+<!--				<div id="answerPopup" class="popup hidden">-->
+<!--				  <div th:if="${isCorrect != null}">-->
+<!--				    <p th:text="${isCorrect} ? '正解！' : '不正解…'"></p>-->
+<!--				    <p>あなたの選択: <span th:text="${selected}"></span></p>-->
+<!--				    <p>正解は: <span th:text="${quiz.correctAns}"></span></p>-->
+<!--				  </div>-->
+<!--				</div>-->
 
-<!--				<div class="answer">-->
+				
+
+					
+<!--						<p>あなたの選択: <span th:text="${selected}"></span></p>-->
+<!--						<p>正解は: <span th:text="${quiz.correctAns}"></span></p>-->
+<!--					    <p>🎉 正解！よくできました！</p>-->
+
 <!--					<div th:if="${isCorrect != null}">-->
 <!--					  <p th:text="${isCorrect} ? '正解！' : '不正解…'"></p>-->
 <!--					  <p>あなたの選択: <span th:text="${selected}"></span></p>-->
 <!--					  <p>正解は: <span th:text="${quiz.correctAns}"></span></p>-->
 <!--					</div>-->
-<!--				</div>-->
+				</div>
 
 <!--このページにはいらないのでは？-->
 <!--				<div class="edit">-->
@@ -112,9 +121,9 @@
 							
 			</section>
 				
-
+	
 				<!-- 次の問題へ -->
-				<p class="nav_btn">
+				<p class="nav-btn wide">
 				  <a th:href="@{/mynote/quizzes/{id}(id=${quiz.id + 1})}">次の問題へすすむ</a>
 				</p>
 
@@ -122,21 +131,21 @@
 				<p class="nav_btn">
 				  <a th:href="@{/mynote/quizzes}">問題一覧へ</a>
 				</p> -->
-
+				<div class="grid-items grid-items3">
 				<!-- もう一回 -->
-				<div class="try_again">
-					<p class="nav_btn">
+				<div class="try-again">
+					<p class="nav-btn">
 					  <a th:href="@{/mynote/quizzes/{id}(id=${quiz.id})}">もう一回</a>
 					</p>
 				</div>
 				
 				<!-- 休憩する（ポップアップ付き） -->
-				<div class="brake_time">
-					<p class="nav_btn">
+				<div class="brake-time">
+					<p class="nav-btn">
 					  <a href="#" onclick="confirmBreak()">休憩する</a>
 					</p>
 					<!-- ポップアップ（非表示） -->
-					<p id="popup" class="popup" style="display:none;">
+					<p id="popup" class="popup nav-btn" style="display:none;">
 					  本当に今のページから<br>離れますか？<br>
 					  <button onclick="goToHistory()">はい</button>
 					  <button onclick="closePopup()">キャンセル</button>
@@ -144,16 +153,16 @@
 				</div>
 
 				<!-- 覚えた（非表示） -->
-				<div class="visible">
+				<div class="visible nav-btn">
 					<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
 						<input type="hidden" name="redirectTo" th:value="@{/mynote/quizzes/{id}}" /> <!-- redirectToを変える -->
-						<button type="submit" th:text="${quiz.isVisible} ? '覚えたので非表示にする' : 'もう一度表示に戻す'"></button>
+						<button type="submit" th:text="${quiz.isVisible} ? '覚えた！' : '表示する'"></button>
 					</form>
 					<div id="visiblePopup" class="popup" th:if="${message2}">
 						<span th:text="${message2}">完了メッセージ</span>
 					</div>
 				</div>
-
+		</div><!--//grid-itemsここまで-->
 
             <!-- //メインコンテンツここまで -->
         </main>

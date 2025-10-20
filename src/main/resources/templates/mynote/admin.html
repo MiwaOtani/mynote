@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
-<body>
+<body onload="showPopup('visiblePopup')">
     <div class="outerWrapper">
 
         <!-- ヘッダーをインクルード -->
@@ -26,59 +26,48 @@
             <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
         </header>
 
-        <main id="main" class="">
+        <main id="main" class="contents">
             <!-- ここにメインコンテンツ -->
 			<h2>設定・管理ページ</h2>
 			<!--Flashメッセージの表示-->
 			<p th:if="${message}" th:text="${message}" style="color: blue;">完了メッセージ</p>
 			<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;">エラーメッセージ</p>
 			
-			<table border="1" width="300">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>問題</th>
-						<th>回答1</th>
-						<th>回答2</th>
-						<th>回答3</th>
-						<th>回答4</th>
-						<th>詳細</th>
-						<th>カテゴリ</th>
-						<th>正解フラグ</th>
-						<th>回答日時</th>
-						<th>表示状態</th>
-						<th>切り替え</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-					<tr th:each="quiz : ${quizzes}"> <!--繰り返し処理-->
-						<td th:text="${quiz.id}"></td>
-						<td th:text="${quiz.question}"></td>
-						<td th:text="${quiz.answer1}"></td>
-						<td th:text="${quiz.answer2}"></td>
-						<td th:text="${quiz.answer3}"></td>
-						<td th:text="${quiz.answer4}"></td>
-						<td><a th:href="@{/mynote/quizzes/{id}(id=${quiz.id})}">詳細</a></td>
-						<td><ul>
-							<li th:each="cat : ${quiz.categories}">
-								<span th:text="${cat.categoryId}">カテゴリID</span>：<span th:text="${cat.categoryName}">カテゴリ名</span>
-							</li>
-						</ul></td>
-						<td><span th:text="${quiz.history.isCorrect}" th:if="${quiz.history != null and quiz.history.answeredAt != null}"></span></td>
-						<td><span th:text="${quiz.history.answeredAt}" th:if="${quiz.history != null and quiz.history.answeredAt != null}"></span></td>
-						<!--{id}がプレースホルダ位置で、( )の中身はそこのidに${quiz.id}を代入するという意味-->
-						
-						<td th:text="${quiz.isVisible} ? '表示中' : '非表示'"></td>
-						<td>
+			<div class="study-list">
+				<ol class="question-list"> 
+					<li th:each="quiz : ${quizzes}"> <!--繰り返し処理-->
+						<div class="q-detail">
+						<!-- 問題とカテゴリ -->
+						<div class="q-link">
+							<ul class="q-cate-list">
+								<li th:each="cat : ${quiz.categories}">
+									<small>カテゴリ</small><span th:text="${cat.categoryName}">カテゴリ名</span>
+								</li>
+							</ul>
+							<a th:href="@{/mynote/quizzes/{id}(id=${quiz.id})}">
+								<span th:text="${quiz.question}">問題とリンク</span>
+							</a>
+						</div>
+						<!-- 覚えた（非表示） -->
+					<div class="grid-items">
+						<div class="visible nav-btn">
 							<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
 								<input type="hidden" name="redirectTo" th:value="@{/mynote/admin}" /> <!-- redirectToを変える -->
-								<button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>
+								<button type="submit" th:text="${quiz.isVisible} ? '覚えたので隠す' : 'もう一度表示する'"></button>
 							</form>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+							<div id="visiblePopup" class="popup hidden" th:if="${message2}">
+								<span th:text="${message2}">完了メッセージ</span>
+							</div>
+						</div>
+						<!-- 編集する -->
+						<div class="edit nav-btn">
+							<a th:href="@{/mynote/quizzes/edit/{id}(id=${quiz.id})}">編集する</a>
+						</div>
+					</div>
+					</div>
+					</li><!-- //ここまでワンセット -->
+				</ol>
+			</div>
 
 			<a th:href="@{/mynote/quizzes/form}">新規登録</a>
             <!-- //メインコンテンツここまで -->
