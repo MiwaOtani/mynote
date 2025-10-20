@@ -85,10 +85,12 @@ li {
 
 a {
   text-decoration: none;
+  color: #260597;
 }
-a:active {
+a:active, a:hover {
   color:hotpink;
 }
+
 
 img,
 source {
@@ -300,15 +302,58 @@ section .study {
 .choice {
 	margin: 20px 0;
 }
+.choice h3 {
+	margin: 1px;
+	font-size: 0.95em;
+	color: #1a92f3;
+}
 .choice button {
 	text-align: left;
 	margin: 5px 0;
 	padding: 10px;
+	padding-left: 32px;
 	background-color: #e4f3ff;
-  border-radius: 5px;
-  border: 2px solid #3F51B5;
-  border-left: 15px solid #3F51B5;
+  border-radius: 10px;
+  border: 2px solid #0075d2;
+/*  border-left: 15px solid #3F51B5;*/
   width: 100%;
+color: #260597;
+font-weight: 600;
+}
+.choice button:active, 
+.choice button:hover {
+  color:hotpink;
+  cursor: pointer;
+}
+
+button.correct {
+  background-color: #d4f4dd;
+  border: 2px solid #4caf50;
+/*  border-left: 15px solid #4caf50;*/
+}
+
+button.incorrect {
+  background-color: #fbeaea;
+  border: 2px solid #f44336;
+/*  border-left: 15px solid #f44336;*/
+}
+.correct {
+  background-color: #e0ffe0;
+  border: 2px solid #4CAF50;
+  color: #2e7d32;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+.incorrect {
+  background-color: #ffe0e0;
+  border: 2px solid #f44336;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 10px 0;
 }
 .choice-1, .choice-2, .choice-3, .choice-4 {
 	position: relative;
@@ -318,9 +363,12 @@ section .study {
 .choice-3::before,
 .choice-4::before {
 	position: absolute;
-	left: 0;
-	top: 25%;
-	color: #FFF;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #c3bafa;
+	font-size: 26px;
+	font-family: "Cherry Bomb One", system-ui;
 }
 .choice-1::before {
   content: "１";
@@ -360,9 +408,9 @@ section .study {
 	background-size: 110px;
     color: #FFF;
     font-size: 90%;
-    padding: 5px 5px 5px 20px;
+    padding: 5px 6px 5px 20px;
     font-weight: 400;
-	border-radius: 6px;
+	border-radius: 8px;
 /*	cursor: pointer;*/
 }
 .edit {
@@ -419,7 +467,7 @@ section .study {
 	justify-content: space-between;
 }
 .grid-items {
-	margin: 10px 0 0;;
+	margin: 15px 0 3px;
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2列で均等に分ける */
   /*grid-auto-flow: column;  横方向に並べる */
@@ -514,36 +562,7 @@ section .study {
 /*  border-radius: 8px;*/
 /*  font-weight: bold;*/
 /*}*/
-.correct {
-  background-color: #e0ffe0;
-  border: 2px solid #4CAF50;
-  color: #2e7d32;
-  padding: 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-button.correct {
-  background-color: #d4f4dd;
-  border: 2px solid #4caf50;
-  border-left: 15px solid #4caf50;
-}
 
-button.incorrect {
-  background-color: #fbeaea;
-  border: 2px solid #f44336;
-  border-left: 15px solid #f44336;
-}
-
-.incorrect {
-  background-color: #ffe0e0;
-  border: 2px solid #f44336;
-  color: #c62828;
-  padding: 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  margin: 10px 0;
-}
 
 /* ========== メディアクエリ ========== */
 @media (min-width: 768px) {
