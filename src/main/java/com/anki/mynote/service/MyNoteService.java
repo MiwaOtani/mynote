@@ -2,8 +2,7 @@ package com.anki.mynote.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
+import com.anki.mynote.entity.Category;
 import com.anki.mynote.entity.History;
 import com.anki.mynote.entity.Quiz;
 
@@ -29,6 +28,9 @@ public interface MyNoteService {
 	//履歴を取得する
 	void insertHistoryQuiz(History history);
 	void updateHistoryQuiz(History history);
-    History selectHistoryByQuizId(@Param("quizId") Integer quizId);
+    History selectHistoryByQuizId(Integer quizId);
 	void insertOrUpdateHistory(History history);
+	//カテゴリ一覧を取得する
+	List<Category> selectAllCategories();
+	Category findCategoryById(Integer categoryId);
 }

@@ -1,7 +1,6 @@
 package com.anki.mynote.form;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,7 +34,7 @@ public class MyNoteForm {
 	//新規判定
 	private Boolean isNew; //TrueまたはFalse
 	private String questionType; // "multiple" or "truefalse"
-	@NotNull(message = "答えを選択してください")
+	//@NotNull(message = "答えを選択してください")
 	private Integer ans;
 
 }

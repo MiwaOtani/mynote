@@ -10,6 +10,7 @@
 		<result property="answer4" column="answer_4" />
 		<result property="correctAns" column="correct_ans" />
 		<result property="categoryId" column="category_id" />
+<!--		<result property="categoryIName" column="category_name" />-->
 		<result property="imagePath" column="image_path" />
 		<result property="isVisible" column="is_visible" />
 		<!-- associationが先 --><!--問題と回答履歴：1対1の関係-->
@@ -24,6 +25,12 @@
 		<result property="categoryName" column="category_name" />
 	</collection>
 	</resultMap>
+	
+	<resultMap id="CategoryResultMap" type="com.anki.mynote.entity.Category">
+	    <id property="categoryId" column="category_id"/>
+	    <result property="categoryName" column="category_name"/>
+	</resultMap>
+	
 <!-- エイリアスを一致させる　例： c.name as category_nameとしたならcolumn="category_name"とする -->
 	<!--全件検索
 	<select id="selectAll" resultType="com.anki.mynote.entity.Quiz">
@@ -96,7 +103,7 @@
 	  INSERT INTO quizzes (id, question, answer_1, answer_2, answer_3, answer_4, correct_ans, category_id, is_visible, image_path)
 	  VALUES (#{id}, #{question}, #{answer1}, #{answer2}, #{answer3}, #{answer4}, #{correctAns}, #{categoryId}, #{isVisible}, #{imagePath})
 	</insert>	
-	<!-- resultMapを使わないエイリアスつけるパターン-->
+	<!-- ↓resultMapを使わない asでエイリアス名つけるパターン↓-->
 	<select id="selectHistoryByQuizId" resultType="com.anki.mynote.entity.History">
 	  SELECT quiz_id as quizId, is_correct as isCorrect, answered_at as answeredAt
 	  FROM history
@@ -111,5 +118,16 @@
 	  SET is_correct = #{isCorrect}, answered_at = CURRENT_TIMESTAMP
 	  WHERE quiz_id = #{quizId}
 	</update>
+	<!--	カテゴリ一覧取得-->
+	<select id="selectAllCategories" resultMap="CategoryResultMap">
+	    SELECT category_id, category_name FROM categories ORDER BY category_id
+	</select>
+	<!--	IDからカテゴリ名取得-->
+	<select id="findCategoryById" resultMap="CategoryResultMap">
+	    SELECT category_id, category_name
+	    FROM categories
+	    WHERE category_id = #{categoryId}
+	</select>
+
 
 </mapper>

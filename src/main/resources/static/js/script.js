@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		  originalAnswer2 = answer2.value;
 
 		  // ◯✕を自動入力
-		  answer1.value = '◯';
-		  answer2.value = '✕';
+		  answer1.value = '○';
+		  answer2.value = '✕ ';
 		  answer1.readOnly = true;
 		  answer2.readOnly = true;
 
@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
 //	  document.getElementById('answer2').readOnly = true;
     } else {
       // multiple形式なら常に表示（空欄でも）
-      answer3Block.style.display = "block";
-      answer4Block.style.display = "block";
+      answer3Block.style.display = "flex";
+      answer4Block.style.display = "flex";
 	  // 元の値を復元
 	    answer1.value = originalAnswer1;
 	    answer2.value = originalAnswer2;
@@ -78,7 +78,7 @@ imageInput.addEventListener('change', function () {
 });
 
 // ペースト時のプレビュー
-document.getElementById('paste_zone').addEventListener('paste', function (e) {
+document.getElementById('paste-zone').addEventListener('paste', function (e) {
   const items = e.clipboardData.items;
   for (let item of items) {
     if (item.type.indexOf("image") !== -1) {

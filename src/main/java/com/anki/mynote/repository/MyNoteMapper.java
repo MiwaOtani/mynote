@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.anki.mynote.entity.Category;
 import com.anki.mynote.entity.History;
 import com.anki.mynote.entity.Quiz;
 
@@ -32,4 +33,7 @@ public interface MyNoteMapper {
 		void insertHistory(History history);
 	    void updateHistory(History history);
 	    History selectHistoryByQuizId(@Param("quizId") Integer quizId);
+	  //カテゴリ一覧を取得する
+	    List<Category> selectAllCategories();
+	    Category findCategoryById(@Param("categoryId") Integer categoryId);
 }

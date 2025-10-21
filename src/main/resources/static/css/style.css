@@ -198,6 +198,10 @@ h2 {
   margin: 20px 0 10px;
   text-align: left;
 }
+h3 {
+	font-size: 1.00em;
+	color: #03A9F4;
+}
 
 /* ========== ボタン ========== */
 .btn {}
@@ -231,18 +235,58 @@ td {
 
 
 /* ========== フォーム ========== */
-#paste_zone {
+section.edit-form {
+	
+}
+section.edit-form small {
+	font-size: 0.65em;
+	color: hotpink;
+	margin-left: 2px;
+}
+.question-txt {
+	width: 100%;
+	min-height: 100px;
+}
+.image-area {
+	margin:10px 0;
+}
+#paste-zone {
+	margin:5px 0;
   border: 2px dashed #bbb;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  padding: 25px;
+  padding: 10px;
   text-align: center;
-  font: 20pt bold 'Vollkorn';
   color: #bbb;
+  width: 101%;
+  box-sizing: border-box;
 }
-.hidden {
+#paste-zone span {
+	z-index:-9999;
 /*  display: none;*/
+}
+#preview {
+	width: 100%;
+	max-width: 300px;
+}
+.image-area label {
+	font-size: 1.00em;
+	color: #03A9F4;
+}
+
+#categoryId {
+	margin-bottom: 15px;
+	height: 2em;
+	border-radius: 10px;
+}
+.answer-row {
+	width: 100%;
+	display: flex;
+	margin:10px 0;
+}
+.answer-row label {
+	min-width: 23px;
 }
 .visible {
   display: block;
@@ -273,7 +317,7 @@ textarea {
   content: "〇";
 }
 .truefalse .answer-label[data-index="2"]::after {
-  content: "✕";
+  content: "✕ ";
 }
 /* マルバツ形式のとき、正解ラジオボタンを非表示にする */
 /*.truefalse .answer-row input[type="radio"] {*/
@@ -465,7 +509,13 @@ button.incorrect {
 .btn-area {
 	display: flex;
 	justify-content: space-between;
+	margin: 20px 0 10px;
 }
+.btn-area input[type='submit'] {
+	padding: 15px;
+	background-color: #1a92f3;
+}
+
 .grid-items {
 	margin: 15px 0 3px;
   display: grid;
@@ -490,19 +540,21 @@ button.incorrect {
 	background-color: #1a92f3;
 }
 .nav-btn button,
-.nav-btn a {
-  width: 100%;
-  max-width: 100%; /* はみ出し防止 */
-  box-sizing: border-box; /*padding や border を含めてwidthに収まる*/
-  display: block;
-  text-align: center;
+.nav-btn a,
+.nav-btn input {
+
 }
 
 /*問題一覧ページここまで*/
 
 /*共通パーツ*/
 .nav-btn a,
-.nav-btn button {
+.nav-btn button,
+.nav-btn input  {
+	width: 100%;
+	max-width: 100%; /* はみ出し防止 */
+	box-sizing: border-box; /*padding や border を含めてwidthに収まる*/
+	text-align: center;
   display: inline-block;
 /*  margin: 0 5px;*/
   padding: 10px;

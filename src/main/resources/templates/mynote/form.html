@@ -26,28 +26,43 @@
             <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
         </header>
 
-        <main id="main" class="">
+        <main id="main" class="contents">
             <!-- ここにメインコンテンツ -->
+			<section class="edit-form">
 <!-- タイトル：登録 OR 編集 -->
 <h2 th:if="${myNoteForm.isNew}">新しい問題を作成する</h2>
 <h2 th:unless="${myNoteForm.isNew}">登録した問題を編集する</h2>
 <!-- アクション：登録 OR 編集 -->
-<form th:action="${myNoteForm.isNew} ? @{/mynote/quizzes/save} : @{/mynote/quizzes/update}" th:object="${myNoteForm}" method="post" enctype="multipart/form-data">
+<form th:action="@{/mynote/quizzes/confirm}" th:object="${myNoteForm}" method="post" enctype="multipart/form-data">
 <!-- idは更新時に必要なため、hiddenで持つ-->
 <input type="hidden" th:field="*{id}">
 
-	<h3>問題文を入力する</h3>
-    <textarea row="5" cols="30"  th:field="*{question}"></textarea>
+	<h3>問題文 <i class="fa-solid fa-pen-to-square"></i><small>※必須項目です。</small></h3>
+    <textarea class="question-txt" th:field="*{question}"></textarea>
 	<!--バリデーションエラー表示 -->
 	<span th:if="${#fields.hasErrors('question')}" th:errors="*{question}" style="color:red;">エラーがあれば表示</span>
-    <label>画像</label><br>
-	 <input type="file" name="image" accept="image/*" id="imageInput"><br>
-	 <div id="paste_zone">ここに表示されます<br>
-	<img id="preview" style="max-width:300px; display:none;"><br></div>
+    <div class="image-area">
+		<label for="imageInput">画像 <i class="fa-solid fa-image"></i></label>
+	 	<input type="file" name="image" accept="image/*" id="imageInput"><br>
+		<div id="paste-zone"><span>直接貼り付けもできます</span><br>
+		<img id="preview" style="max-width:300px; display:none;"><br></div>
+	</div>
 
+	<h3>カテゴリ<i class="fa-solid fa-layer-group"></i></h3>
+	<label for="categoryId">選んでください</label>
+	<select id="categoryId" th:field="*{categoryId}">
+	    <option value="" disabled selected>選んでください</option>
+	    <option th:each="cat : ${categories}" th:value="${cat.categoryId}" th:text="${cat.categoryName}"></option>
+<!--		<option th:each="cat : ${categories}"-->
+<!--		        th:value="${cat != null ? cat.categoryId : 0}"-->
+<!--		        th:text="${cat != null ? cat.categoryName : '未設定'}">-->
+<!--		</option>-->
 
-<label>問題形式：</label><br>
+	</select>
+	
 
+	
+<h3>問題形式 <i class="fa-solid fa-truck-pickup"></i><br><small>※回答2件は必須です。正解にチェックをしてください。</small></h3>
   <label>
     <input type="radio" th:field="*{questionType}" name="questionType" value="multiple" />
     選択肢形式
@@ -65,9 +80,9 @@
       <input type="radio" name="correctAns" value="1" th:checked="${myNoteForm.correctAns == 1}" />
       正解
     </label>
-	<!--バリデーションエラー表示 -->
-	<span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
   </div>
+  <!--バリデーションエラー表示 -->
+  <span th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}" style="color:red;">エラーがあれば表示</span>
 
   <div class="answer-row" id="answer2Block" >
     <label class="answer-label" data-index="2" for="answer2"></label>
@@ -76,9 +91,9 @@
       <input type="radio" name="correctAns" value="2" th:checked="${myNoteForm.correctAns == 2}" />
       正解
     </label>
-	<!--バリデーションエラー表示 -->
-	<span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
   </div>
+  <!--バリデーションエラー表示 -->
+  <span th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}" style="color:red;">エラーがあれば表示</span>
 
   <!-- answer3・answer4は表示制御あり -->
   <div class="answer-row" id="answer3Block" style="display:none;">
@@ -101,11 +116,20 @@
   
   
 <!-- ボタン：登録 OR 編集 -->
-<input th:if="${myNoteForm.isNew}" type="submit" value="登録する">
-<input th:unless="${myNoteForm.isNew}" type="submit" value="更新する">
-</form>
-<a th:href="@{/mynote}">トップページへ戻る</a>
+<div class="btn-area nav-btn">
+<input th:if="${myNoteForm.isNew}" type="submit" value="これで登録する">
+<input th:unless="${myNoteForm.isNew}" type="submit" value="これで更新する">
+</div>
+<!-- フォームクリアボタン -->
+<div class="nav-btn">
+<input type="button" value="フォームをクリアしてやり直す" onclick="window.location.href='/mynote/quizzes/form';">
+</div>
+</div>
 
+</form>
+<!--<a th:href="@{/mynote}">トップページへ戻る</a>-->
+
+</section>
             <!-- //メインコンテンツここまで -->
         </main>
 

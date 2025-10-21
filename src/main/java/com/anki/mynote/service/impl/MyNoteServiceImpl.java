@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.anki.mynote.entity.Category;
 import com.anki.mynote.entity.History;
 import com.anki.mynote.entity.Quiz;
 import com.anki.mynote.repository.MyNoteMapper;
@@ -105,5 +106,17 @@ public class MyNoteServiceImpl implements MyNoteService {
 	        myNoteMapper.insertHistory(history);
 	    }
 	}
+
+
+	@Override
+	public List<Category> selectAllCategories() {
+	    return myNoteMapper.selectAllCategories();
+	}
+
+	@Override
+	public Category findCategoryById(Integer categoryId) {
+		return myNoteMapper.findCategoryById(categoryId);
+	}
+
 
 }
