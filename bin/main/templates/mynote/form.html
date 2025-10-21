@@ -33,7 +33,7 @@
 <h2 th:if="${myNoteForm.isNew}">新しい問題を作成する</h2>
 <h2 th:unless="${myNoteForm.isNew}">登録した問題を編集する</h2>
 <!-- アクション：登録 OR 編集 -->
-<form th:action="@{/mynote/quizzes/confirm}" th:object="${myNoteForm}" method="post" enctype="multipart/form-data">
+<form th:action="${myNoteForm.isNew} ? @{/mynote/quizzes/save} : @{/mynote/quizzes/update}" th:object="${myNoteForm}" method="post" enctype="multipart/form-data">
 <!-- idは更新時に必要なため、hiddenで持つ-->
 <input type="hidden" th:field="*{id}">
 

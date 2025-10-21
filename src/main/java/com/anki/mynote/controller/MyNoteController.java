@@ -192,63 +192,65 @@ public class MyNoteController {
 			}
 
 			//新規登録を実行する
-//			@PostMapping("/quizzes/save")
-//			public String create(@Validated MyNoteForm form, BindingResult bindingResult, Model model, RedirectAttributes attributes) {
-//				//===バリデーションチェック===
-//				//入力チェックNG：入力画面を表示する
-//				if (bindingResult.hasErrors()) {
-//					//新規登録画面の設定
-//					form.setIsNew(true);
-//					if (form.getQuestionType() == null) {
-//				        form.setQuestionType("multiple"); // null のときだけ補完
-//				        form.setCorrectAns(1); 
-//				    }
-//					// カテゴリ一覧を取得して渡す
-//				    List<Category> categoryList = service.selectAllCategories(); 
-//				    model.addAttribute("categories", categoryList);
-//				    
-//					return "mynote/form";
-//				}
-//				//=====================
-//				//エンティティへの変換
-//				Quiz Quiz = MyNoteHelper.convertQuiz(form, form.getImage());
-//				System.out.println(Quiz);
-//				//登録実行
-//				service.insertQuiz(Quiz);
-//				//フラッシュメッセージ
-//				attributes.addFlashAttribute("message","新しい問題が作成されました！");
-//				//PRGパターン：一覧画面へリダイレクト
-//				return "redirect:/mynote/quizzes";
-//			}
-			//登録内容の確認
-			@PostMapping("/quizzes/confirm")
-			public String confirm(@Validated MyNoteForm form, BindingResult bindingResult, Model model) {
-			    if (bindingResult.hasErrors()) {
-			        form.setIsNew(true);
-			        if (form.getQuestionType() == null) {
-			            form.setQuestionType("multiple");
-			            form.setCorrectAns(1);
-			        }
-			        List<Category> categoryList = service.selectAllCategories();
-			        model.addAttribute("categories", categoryList);
-			        return "mynote/form";
-			    }
-
-			    // カテゴリ名を表示したい場合はここで取得して渡す
-			    Category selected = service.findCategoryById(form.getCategoryId());
-			    model.addAttribute("selectedCategory", selected);
-
-			    model.addAttribute("form", form);
-			    return "mynote/confirm";
-			}
-			//登録の実行
 			@PostMapping("/quizzes/save")
-			public String save(@ModelAttribute MyNoteForm form, RedirectAttributes attributes) {
-			    Quiz quiz = MyNoteHelper.convertQuiz(form, form.getImage());
-			    service.insertQuiz(quiz);
-			    attributes.addFlashAttribute("message", "新しい問題が作成されました！");
-			    return "redirect:/mynote/quizzes";
+			public String create(@Validated MyNoteForm form, BindingResult bindingResult, Model model, RedirectAttributes attributes) {
+				//===バリデーションチェック===
+				//入力チェックNG：入力画面を表示する
+				if (bindingResult.hasErrors()) {
+					//新規登録画面の設定
+					form.setIsNew(true);
+					if (form.getQuestionType() == null) {
+				        form.setQuestionType("multiple"); // null のときだけ補完
+				        form.setCorrectAns(1); 
+				    }
+					// カテゴリ一覧を取得して渡す
+				    List<Category> categoryList = service.selectAllCategories(); 
+				    model.addAttribute("categories", categoryList);
+				    
+					return "mynote/form";
+				}
+				//=====================
+				//エンティティへの変換
+				Quiz Quiz = MyNoteHelper.convertQuiz(form, form.getImage());
+				System.out.println(Quiz);
+				//登録実行
+				service.insertQuiz(Quiz);
+				//フラッシュメッセージ
+				attributes.addFlashAttribute("message","新しい問題が作成されました！");
+				//PRGパターン：一覧画面へリダイレクト
+				return "redirect:/mynote/quizzes";
 			}
+//			//登録内容の確認 確認ページ出すのは難しそう・・・
+//			@PostMapping("/quizzes/confirm")
+//			public String confirm(@Validated MyNoteForm form, BindingResult bindingResult, Model model) {
+//			    if (bindingResult.hasErrors()) {
+//			        form.setIsNew(true);
+//			        if (form.getQuestionType() == null) {
+//			            form.setQuestionType("multiple");
+//			            form.setCorrectAns(1);
+//			        }
+//			        List<Category> categoryList = service.selectAllCategories();
+//			        model.addAttribute("categories", categoryList);
+//			        return "mynote/form";
+//			    }
+//
+//			    // カテゴリ名を表示したい場合はここで取得して渡す
+//			    Category selected = service.findCategoryById(form.getCategoryId());
+//			    model.addAttribute("selectedCategory", selected);
+//
+//			    model.addAttribute("form", form);
+//			    return "mynote/confirm";
+//			}
+//			//登録の実行
+//			@PostMapping("/quizzes/save")
+//			public String save(@ModelAttribute MyNoteForm form, RedirectAttributes attributes) {
+//			    Quiz quiz = MyNoteHelper.convertQuiz(form, form.getImage());
+//			    service.insertQuiz(quiz);
+//			    System.out.println(quiz);
+//
+//			    attributes.addFlashAttribute("message", "新しい問題が作成されました！");
+//			    return "redirect:/mynote/quizzes";
+//			}
 			
 			//指定されたIDの修正画面を表示する
 			@GetMapping("/quizzes/edit/{id}")
@@ -289,6 +291,7 @@ public class MyNoteController {
 				Quiz Quiz = MyNoteHelper.convertQuiz(form, form.getImage());
 				//更新処理
 				service.updateQuiz(Quiz);
+				System.out.println(Quiz);
 				//フラッシュメッセージ
 				attributes.addFlashAttribute("message","問題が更新されました！");
 				//PRGパターン

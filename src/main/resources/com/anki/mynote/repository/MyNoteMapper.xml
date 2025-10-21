@@ -129,5 +129,4 @@
 	    WHERE category_id = #{categoryId}
 	</select>
 
-
 </mapper>

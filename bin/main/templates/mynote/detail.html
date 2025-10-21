@@ -35,7 +35,7 @@
 			
 			<section class="study">
 				<div class="heading">
-				<h2>問題：<span th:text="${quiz.id}"></span></h2>
+				<h2>問題No.<span th:text="${quiz.id}"></span></h2>
 					<div class="category">
 						<p th:each="cat : ${quiz.categories}">
 							<span th:text="${cat.categoryName}">カテゴリ名</span>
