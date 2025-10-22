@@ -1,7 +1,8 @@
-/**
- * 暗記アプリ MyNote
- *  JavaScript 2025/10/15作成
- */
+/****************************
+   暗記アプリ MyNote
+   JavaScript 2025/10/22更新
+   script.js
+*******************************/
 
 //**********答えの選択 ***********/
 document.addEventListener("DOMContentLoaded", function () {
@@ -93,120 +94,4 @@ document.getElementById('paste-zone').addEventListener('paste', function (e) {
     }
   }
 });
-
-//ポップアップ表示
-function confirmBreak() {
-  document.getElementById('popup').style.display = 'block';
-}
-
-//function showPopup() {
-//  document.getElementById('popup2').classList.remove('hidden');
-//  
-//  setTimeout(() => {
-//      document.getElementById('popup2').classList.add('fadeout');
-//    }, 2000);
-//
-//    setTimeout(() => {
-//      document.getElementById('popup2').classList.add('hidden');
-//      document.getElementById('popup2').classList.remove('fadeout');
-//    }, 3000);
-//}
-
-function closePopup() {
-  document.getElementById('popup').style.display = 'none';
-  document.getElementById('popup2').classList.add('hidden');
-}
-//function submitHideForm() {
-//  document.querySelector('form').submit(); // もしくは document.getElementById('hideForm').submit();
-//}
-
-function goToHistory() {
-  window.location.href = '/mynote/history'; // 履歴ページなどに遷移
-}
-
-function showPopup(...ids) {
-  ids.forEach(id => {
-    const popup = document.getElementById(id);
-    const message = popup?.querySelector('p, span');
-	console.log('popup:', popup);
-	console.log('message:', message?.textContent);
-
-
-    if (popup && message && message.textContent.trim() !== '') {
-      popup.classList.remove('hidden');
-	  console.log('表示されました');
-
-      setTimeout(() => {
-		console.log('フェードアウト開始');
-        popup.classList.add('fadeout');
-      }, 2000);
-
-      setTimeout(() => {
-        popup.classList.add('hidden');
-        popup.classList.remove('fadeout');
-		console.log('非表示完了');
-      }, 3000);
-    } else {
-		console.log('条件に合わず表示されません');
-	}
-  });
-}
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const bar = document.querySelector(".rate-bar");
-    const rate = parseFloat(bar.getAttribute("data-rate"));
-    bar.style.width = rate + "%";
-  });
-
-//document.addEventListener("DOMContentLoaded", function () {
-//  const rate = document.querySelector("span[th\\:text='${correctRate}']").textContent;
-//  const bar = document.querySelector(".rate-bar");
-//  bar.style.setProperty("--rate", rate);
-//});
-//
-//function showAnswerPopup() {
-//  const popup = document.getElementById('answerPopup');
-//  const hasAnswer = popup?.querySelector('p');
-//
-//  if (hasAnswer && hasAnswer.textContent.trim() !== '') {
-//    popup.classList.remove('hidden');
-//
-//    setTimeout(() => {
-//      popup.classList.add('fadeout');
-//    }, 2000);
-//
-//    setTimeout(() => {
-//      popup.classList.add('hidden');
-//      popup.classList.remove('fadeout');
-//    }, 3000);
-//  }
-//}
-
-
-
-
-//表示非表示：トグル切替
-//function toggleVisibility(button) {
-//    const id = button.getAttribute("data-id");
-//    const isVisible = button.getAttribute("data-visible") === "true";
-//    const url = `/mynote/quizzes/${isVisible ? 'hide' : 'show'}/${id}`;
-//
-//    fetch(url, {
-//        method: 'POST',
-//        headers: {
-//            'X-Requested-With': 'XMLHttpRequest',
-//            'Content-Type': 'application/json'
-//        }
-//    })
-//    .then(response => {
-//        if (!response.ok) throw new Error("通信失敗");
-//        // 表示状態を切り替え
-//        button.setAttribute("data-visible", (!isVisible).toString());
-//        button.textContent = isVisible ? "表示に戻す" : "非表示にする";
-//    })
-//    .catch(error => {
-//        alert("切り替えに失敗しました");
-//        console.error(error);
-//    });
-//}
 

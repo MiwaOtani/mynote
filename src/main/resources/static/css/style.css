@@ -1,250 +1,58 @@
 @charset "utf-8";
 
 /* ============================ */
-/*  暗記帳アプリ myNote 共通CSS  */
-/*        2025/10/24  更新      */
+/* 暗記帳アプリ myNote 共通CSS */
+/* 2025/10/22更新 */
 /* ============================ */
 
-
-/* ========== 全体設定 ========== */
-
+/* ========== フォント ========== */
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Share:ital,wght@0,400;0,700;1,400;1,700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share:ital,wght@0,400;0,700;1,400;1,700&family=Zen+Maru+Gothic&display=swap'); */
 
 .cherry-bomb-one-regular {
   font-family: "Cherry Bomb One", system-ui;
   font-weight: 400;
-  font-style: normal;
 }
 
 .zen-maru-gothic-regular {
   font-family: "Zen Maru Gothic", sans-serif;
   font-weight: 400;
-  font-style: normal;
 }
-
 .zen-maru-gothic-medium {
-  font-family: "Zen Maru Gothic", sans-serif;
   font-weight: 500;
-  font-style: normal;
 }
-
 .zen-maru-gothic-bold {
-  font-family: "Zen Maru Gothic", sans-serif;
   font-weight: 700;
-  font-style: normal;
 }
-
 .zen-maru-gothic-black {
-  font-family: "Zen Maru Gothic", sans-serif;
   font-weight: 900;
-  font-style: normal;
 }
 
-
+/* ========== ベース設定 ========== */
 html {
-  /* color: #002071; */
   color: #260597;
-  /* color: #68aeff; */
   font-family: "Zen Maru Gothic", sans-serif;
   font-weight: 900;
-  font-style: normal;
 }
-
 body {
   background-color: #ffd9f2;
-/*  background-image: url("/images/backgroundimage.png");*/
-/*  background-repeat: repeat-x;*/
-/*  background-position: center calc(100% - 50px);*/
-/*  background-size: 50%;*/
 }
-#top::before {
-  content: "";
-  position: absolute;
-  bottom: 50px;
-  left: 20px;
-  right: 0;
-  height: 150px;
-  background-image: url("/images/fantasy_unicorn_rainbow.png");
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: 25%;
-  opacity: 1; 
-/*  z-index: -1;*/
-}
-.index-nemu::before {
-  content: "";
-  position: absolute;
-  bottom: 50px;
-  left: 0;
-  right: 0;
-  height: 150px;
-  background-image: url("/images/sky_line05_star.png");
-  background-repeat: repeat-x;
-  background-position: center bottom;
-/*  background-size: 25%;*/
- opacity: 0.5;
- z-index: -1;
-}
-body,
-h1,
-h2,
-h3,
-p,
-ul,
-ol,
-li,
-dl,
-dt,
-dd,
-table,
-tr,
-th,
-td {
+body, h1, h2, h3, p, ul, ol, li, dl, dt, dd, table, tr, th, td {
   margin: 0;
   padding: 0;
-  /*line-height: 1em;*/
-  /* font-size: 11px; */
 }
-
-ul,
-ol,
-li {
+ul, ol {
   list-style: none;
 }
-
 a {
   text-decoration: none;
   color: #260597;
 }
-a:active, a:hover {
-  color:hotpink;
+a:hover, a:active {
+  color: hotpink;
 }
-
-
-img,
-source {
+img, source {
   width: 100%;
   object-fit: cover;
-}
-
-
-/* ========== レイアウト ========== */
-.outerWrapper {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: 100%;
-  min-height: 100vh;
-  min-width: 365px;
-}
-
-.wrapper {
-  width: 360px;
-  margin: 0 auto;
-  padding: 10px;
-  text-align: center;
-}
-
-/* ========== ヘッダー ========== */
-#header {
-  position: relative;
-}
-
-#header h1 {
-  font-family: "Cherry Bomb One", system-ui;
-  text-align: center;
-  line-height: 1em;
-  font-size: 40px;
-  position: absolute;
-  top: 30px;
-  left: 65px;
-  right: 50px;
-}
-
-#header nav {
-  display: flex;
-  margin: 0 15px 10px;
-}
-
-#header ul {
-  display: flex;
-  gap: 16px;
-  padding: 10px;
-  margin: 0 auto;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-}
-
-#header nav a {
-  color: #68aeff;
-  font-size: 30px;
-}
-
-/* #header .nav:hover {
-  transform: translateY(-4px);
-  opacity: 0.85;
-} */
-
-#main {
-  background: #FFF;
-  padding: 30px;
-  margin: -15px 20px;
-}
-
-
-#footer {
-  font-family: "Cherry Bomb One", system-ui;
-  text-align: center;
-  margin: 10px auto 20px;
-}
-
-/* ========== ナビゲーションボタン ========== */
-
-
-
-
-/* ========== 見出し ========== */
-h2 {
-  border-left: 5px solid #68aeff;
-  font-size: 1.25em;
-  padding: 0 10px;
-  margin: 20px 0 10px;
-  text-align: left;
-}
-h3 {
-	font-size: 1.00em;
-	color: #03A9F4;
-}
-
-/* ========== ボタン ========== */
-
-.index-nemu {
-	display: grid;
-	align-content: center;
-	gap: 10px;
-}
-.index-nemu {
-  display: flex;
-  flex-direction: column; /* 縦並び */
-  align-items: center;     /* 横中央揃え */
-  justify-content: space-around; /* 縦方向の均等配置 */
-  height: 60vh;
-  padding: 40px;
-}
-.btn { 
-	width: 100%;
-}
-.btn a {
-  display: block;
-  /* border: 1px solid #a5a5a5; */
-  background: #b7d9ff;
-  line-height: 3em;
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  color: #260597;
-  font-size: 1.5rem;
 }
 
 /* ========== テーブル ========== */
@@ -261,28 +69,189 @@ td {
   font-size: 11px;
 }
 
+/* ========== レイアウト ========== */
+.outerWrapper {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+  min-height: 100vh;
+  min-width: 365px;
+}
+.wrapper {
+  width: 360px;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+}
+
+/* ========== ヘッダー ========== */
+#header {
+  position: relative;
+}
+#header h1 {
+  font-family: "Cherry Bomb One", system-ui;
+  font-size: 40px;
+  position: absolute;
+  top: 30px;
+  left: 65px;
+  right: 50px;
+  text-align: center;
+}
+#header nav {
+  display: flex;
+  margin: 0 15px 10px;
+}
+#header ul {
+  display: flex;
+  gap: 16px;
+  padding: 10px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+#header nav a {
+  color: #68aeff;
+  font-size: 30px;
+}
+
+/* ======== メインコンテナ ======== */
+#main {
+  background: #FFF;
+  padding: 30px;
+  margin: -15px 20px -20px;
+}
+#footer {
+  font-family: "Cherry Bomb One", system-ui;
+  text-align: center;
+  margin: 10px auto 20px;
+}
+
+/* ========== 見出し ========== */
+h2 {
+  border-left: 5px solid #68aeff;
+  font-size: 1.25em;
+  padding: 0 10px;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+h3 {
+	font-size: 1.00em;
+	color: #03A9F4;
+}
+
+/* ========== ボタン ========== */
+.nav-btn a,
+.nav-btn button,
+.nav-btn input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  display: inline-block;
+  padding: 10px;
+  background-color: #68aeff;
+  color: #fff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: 400;
+  border: none;
+  font-size: 14px;
+}
+.nav-btn.wide a {
+  padding: 15px;
+  background-color: #1a92f3;
+}
+.btn-area {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 10px;
+}
+.btn-area input[type='button'] {
+  padding: 15px;
+  background-color: #1a92f3;
+}
+
+/* ========== グリッド ========== */
+.grid-items {
+  margin: 15px 0 3px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.grid-items3 {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  min-height: 50px;
+}
+
+/* ========== ポップアップ ========== */
+.popup {
+  position: fixed;
+  top: 28%;
+  left: 50%;
+  transform: translate(-50%, -28%);
+  background-color: white;
+  border: 4px solid #00bfec;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.9em;
+  min-width: 200px;
+  margin:10px 0;
+}
+.popup button {
+  margin: 5px 0;
+  padding: 8px 16px;
+  font-size: 1em;
+}
+.hidden {
+  display: none;
+}
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.popup.fadeout {
+  animation: fadeOut 1s ease forwards;
+}
+
+#confirmContent {
+	margin: 10px 0;
+}
 
 /* ========== フォーム ========== */
-section.edit-form {
-	
-}
+
+/* 編集フォームの補足テキスト */
 section.edit-form small {
-	font-size: 0.65em;
-	color: hotpink;
-	margin-left: 2px;
+  font-size: 0.65em;
+  color: hotpink;
+  margin-left: 2px;
 }
+
+/* 問題テキストエリア */
 .question-txt {
-	width: 100%;
-	min-height: 100px;
+  width: 100%;
+  min-height: 100px;
 }
+
+/* 画像アップロードエリア */
 .image-area {
-	margin:10px 0;
+  margin: 10px 0;
+}
+.image-area label {
+  font-size: 1em;
+  color: #03A9F4;
 }
 #paste-zone {
-	margin:5px 0;
+  margin: 5px 0;
   border: 2px dashed #bbb;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   padding: 10px;
   text-align: center;
@@ -291,123 +260,192 @@ section.edit-form small {
   box-sizing: border-box;
 }
 #paste-zone span {
-	z-index:-9999;
-/*  display: none;*/
+  z-index: -9999;
 }
 #preview {
-	width: 100%;
-	max-width: 300px;
-}
-.image-area label {
-	font-size: 1.00em;
-	color: #03A9F4;
+  width: 100%;
+  max-width: 300px;
 }
 
+/* カテゴリ選択 */
 #categoryId {
-	margin-bottom: 15px;
-	height: 2em;
-	border-radius: 10px;
+  margin-bottom: 15px;
+  height: 2em;
+  border-radius: 10px;
 }
+
+/* 回答入力行 */
 .answer-row {
-	width: 100%;
-	display: flex;
-	margin:10px 0;
+  width: 100%;
+  display: flex;
+  margin: 10px 0;
 }
 .answer-row label {
-	min-width: 23px;
+  min-width: 23px;
 }
+
+/* 表示制御 */
 .visible {
   display: block;
 }
+
+/* マル・バツ形式のラベル */
 .maru, .batsu {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
-
-.maru label, .batsu label {
+.maru label,
+.batsu label {
   width: 2em;
   text-align: center;
   font-weight: bold;
   margin-right: 10px;
 }
 
+/* テキストエリア共通設定 */
 textarea {
   flex: 1;
   resize: vertical;
 }
-/* デフォルト：数字形式 */
+
+/* 回答ラベルの表示形式 */
 .answer-label::after {
   content: attr(data-index) "．";
 }
 
+/* マルバツ形式のときのラベル切り替え */
 .truefalse .answer-label[data-index="1"]::after {
   content: "〇";
 }
 .truefalse .answer-label[data-index="2"]::after {
-  content: "✕ ";
-}
-/* マルバツ形式のとき、正解ラジオボタンを非表示にする */
-/*.truefalse .answer-row input[type="radio"] {*/
-/*  display: none;*/
-/*}*/
-/*.truefalse .answer-row .label,*/
-/*.truefalse .answer-row label input[type="radio"] {*/
-/*  display: none;*/
-/*}*/
-
-
-
-/*メインコンテンツ（共通）*/
-.contents {
-	
+  content: "✕";
 }
 
+/* ========== トップページ ========== */
+#top::before {
+  content: "";
+  position: absolute;
+  bottom: 50px;
+  left: 20px;
+  right: 0;
+  height: 150px;
+  background-image: url("/images/fantasy_unicorn_rainbow.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 140px;
+  opacity: 1; 
+/*  z-index: -1;*/
+}
 
-/*勉強するページここから*/
-section .study {
-	
+.index-nemu::before {
+  content: "";
+  position: absolute;
+  bottom: 50px;
+  left: -40px;
+  right: 0;
+  height: 150px;
+  background-image: url("/images/sky_line05_star.png");
+  background-repeat: repeat-x;
+  background-position: center bottom;
+/*  background-size: 25%;*/
+ opacity: 0.5;
+ z-index: -1;
 }
-.question {
-	
+.index-nemu {
+	display: grid;
+	align-content: center;
+	gap: 10px;
 }
+.index-nemu {
+  display: flex;
+  flex-direction: column; /* 縦並び */
+  align-items: center;     /* 横中央揃え */
+  justify-content: space-around; /* 縦方向の均等配置 */
+  height: 60vh;
+  padding: 40px;
+}
+.index-nemu .btn { 
+	width: 100%;
+}
+.index-nemu .btn a {
+  display: block;
+  background: #b7d9ff;
+  line-height: 3em;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  color: #260597;
+  font-size: 1.5rem;
+}
+.index-nemu .btn a:hover {
+	background: #260597;
+	color: #fff;
+	transition: ease-in-out 0.5s;
+}
+
+/* ========== 問題一覧 ========== */
+.question-list li {
+  margin: 20px 0;
+}
+.q-detail {
+  border: 5px dotted #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  padding-top: 0;
+  background-color: aliceblue;
+}
+.q-link {
+  margin-bottom: 10px;
+}
+.q-cate-list {
+  margin: 10px 0;
+  padding: 0;
+}
+.q-cate-list li {
+  zoom: 0.85;
+}
+.q-cate-list small {
+  color: #03a9f4;
+  font-size: 0.8em;
+}
+
+/* ========== 勉強するページ ========== */
+
+/* 問題選択エリア */
 .choice {
-	margin: 20px 0;
+  margin: 20px 0;
 }
 .choice h3 {
-	margin: 1px;
-	font-size: 0.95em;
-	color: #1a92f3;
+  margin: 1px;
+  font-size: 0.95em;
+  color: #1a92f3;
 }
 .choice button {
-	text-align: left;
-	margin: 5px 0;
-	padding: 10px;
-	padding-left: 32px;
-	background-color: #e4f3ff;
+  text-align: left;
+  margin: 5px 0;
+  padding: 10px 10px 10px 32px;
+  background-color: #e4f3ff;
   border-radius: 10px;
   border: 2px solid #0075d2;
-/*  border-left: 15px solid #3F51B5;*/
   width: 100%;
-color: #260597;
-font-weight: 600;
+  color: #260597;
+  font-weight: 600;
 }
-.choice button:active, 
-.choice button:hover {
-  color:hotpink;
+.choice button:hover,
+.choice button:active {
+  color: hotpink;
   cursor: pointer;
 }
 
+/* 選択肢の正誤スタイル */
 button.correct {
   background-color: #d4f4dd;
   border: 2px solid #4caf50;
-/*  border-left: 15px solid #4caf50;*/
 }
-
 button.incorrect {
   background-color: #fbeaea;
   border: 2px solid #f44336;
-/*  border-left: 15px solid #f44336;*/
 }
 .correct {
   background-color: #e0ffe0;
@@ -427,271 +465,108 @@ button.incorrect {
   font-weight: bold;
   margin: 10px 0;
 }
+
+/* 選択肢の番号装飾 */
 .choice-1, .choice-2, .choice-3, .choice-4 {
-	position: relative;
+  position: relative;
 }
 .choice-1::before,
 .choice-2::before,
 .choice-3::before,
 .choice-4::before {
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #c3bafa;
-	font-size: 26px;
-	font-family: "Cherry Bomb One", system-ui;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #c3bafa;
+  font-size: 26px;
+  font-family: "Cherry Bomb One", system-ui;
 }
-.choice-1::before {
-  content: "１";
-}
-.choice-2::before {
-  content: "２";
-}
-.choice-3::before {
-  content: "３";
-}
-.choice-4::before {
-  content: "４ ";
-}
+.choice-1::before { content: "１"; }
+.choice-2::before { content: "２"; }
+.choice-3::before { content: "３"; }
+.choice-4::before { content: "４"; }
 
+/* 見出しとカテゴリ */
 .heading {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .heading h2 {
-	margin: 10px 0;
-}
-.category {
-	
+  margin: 10px 0;
 }
 .category p {
-	font-size:80%;
+  font-size: 80%;
 }
 .category ul {
-	display: flex;
-    gap: 5px;
+  display: flex;
+  gap: 5px;
 }
 .category span,
-.q-cate-list span  {
-	background: url(/images/tag4.png) no-repeat;
-    background-position: left;
-	background-size: 110px;
-    color: #FFF;
-    font-size: 90%;
-    padding: 5px 6px 5px 20px;
-    font-weight: 400;
-	border-radius: 8px;
-/*	cursor: pointer;*/
-}
-.edit {
-	
-}
-
-.try-again {
-	
-}
-.brake-time {
-	
-}
-.visible {
-	
-}
-/*勉強するページここまで*/
-
-/*問題一覧ページ*/
-.question-list  {
-/*	display: flex;*/
-}
-.question-list li {
-	margin: 20px 0;
-}
-.question-list .detail a {
-	
-}
-.q-detail {
-	border: 5px dotted #ddd;
-    border-radius: 10px;
-    padding: 10px;
-	background-color: aliceblue;
-}
-.q-link {
-	margin-bottom: 10px;
-}
-.q-cate-list {
-/*	text-align: right;*/
-	margin: 10px 0;
-	padding: 0;
-}
-.q-cate-list li {
-	padding: 0;
-	margin: 0;
-	zoom: 0.85;
-}
-.q-cate-list small {
-	color: #03a9f4;
-	font-size: 0.8em;
-}
-
-.btn-area {
-	display: flex;
-	justify-content: space-between;
-	margin: 20px 0 10px;
-}
-.btn-area input[type='submit'] {
-	padding: 15px;
-	background-color: #1a92f3;
-}
-
-.grid-items {
-	margin: 15px 0 3px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2列で均等に分ける */
-  /*grid-auto-flow: column;  横方向に並べる */
-  gap: 1rem;
-  align-items: center;
-  justify-content: center; /* 中央揃え（任意） */
-  box-sizing: border-box; 
-
-}
-.grid-items3 {
-  grid-template-columns: repeat(3, 1fr); /* 3列で均等に分ける */
-  gap: 5px;
-  min-height: 50px;
-}
-.nav-btn {
-  
-}
-.nav-btn.wide a {
-	padding: 15px;
-	background-color: #1a92f3;
-}
-.nav-btn button,
-.nav-btn a,
-.nav-btn input {
-
-}
-
-/*問題一覧ページここまで*/
-
-/*共通パーツ*/
-.nav-btn a,
-.nav-btn button,
-.nav-btn input  {
-	width: 100%;
-	max-width: 100%; /* はみ出し防止 */
-	box-sizing: border-box; /*padding や border を含めてwidthに収まる*/
-	text-align: center;
-  display: inline-block;
-/*  margin: 0 5px;*/
-  padding: 10px;
-  background-color: #68aeff;
-  color: #fff;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  cursor: pointer;
+.q-cate-list span {
+  background: url(/images/tag4.png) no-repeat left;
+  background-size: 110px;
+  color: #FFF;
+  font-size: 90%;
+  padding: 5px 6px 5px 20px;
   font-weight: 400;
-  border: none;
-  font-size: 14px;
-/* border: 4px dotted #3F51B5;*/
+  border-radius: 8px;
 }
 
-/*.nav-btn a:hover {*/
-/*  transform: translateY(2px);*/
-/*  background-color: rgb(0, 0, 255);*/
-/*  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);*/
-/*  opacity: 0.85;*/
-/*}*/
-.popup {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -30%);
-  background-color: white;
-  border: 4px solid #00bfec;
-  padding: 20px;
-  z-index: 1000;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  text-align: center;
-  font-size: 0.9em;
-}
-.hidden {
-  display: none;
-}
-@keyframes fadeOut {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+/* 表示制御 */
+.visible {
+  display: block;
 }
 
-.popup.fadeout {
-  animation: fadeOut 1s ease forwards;
 
-}
-.popup button {
-  margin: 5px 0;
-  padding: 8px 16px;
-  font-size: 1em;
-}
-/*.answer-btn {*/
-/*background-color: rgb(0, 0, 255);*/
-/*  border: 2px solid rgb(0, 0, 255);*/
-/*  color: rgb(255, 255, 255);*/
-/*  padding: 10px;*/
-/*  border-radius: 8px;*/
-/*  font-weight: bold;*/
-/*}*/
-
-/* 履歴ページ*/
+/* ========== 履歴ページ ========== */
 .frame {
-	border: 5px dotted #ddd;
-	border-radius: 10px;
-	padding: 10px;
-	background-color: aliceblue;
-	margin: 20px 0;
+  border: 5px dotted #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: aliceblue;
+  margin: 20px 0;
 }
 .frame p {
-	text-align: center;
+  text-align: center;
 }
-
 .rate-all p {
-	font-size: 1.5em;
+  font-size: 1.5em;
 }
 .rate-cate span:first-child {
-	font-weight: 400;
+  font-weight: 400;
 }
 .word-a-day {
-	color: deeppink;
-	padding-bottom: 30px;
+  color: deeppink;
+  padding-bottom: 30px;
 }
 .word-a-day p {
-	margin-top: 10px;
+  margin-top: 10px;
 }
-
 .history-list h3 {
-	color: #03a9f4;
-	margin-top:20px;
+  color: #03a9f4;
+  margin-top: 20px;
 }
-.history-list th {
-padding: 10px 2px;
+.history-list th,
+.history-list td {
+  padding: 10px 2px;
 }
 .history-list th span {
-	background: #dff0ff;
-    padding: 3px 8px;
-    border-radius: 20px;
-    margin-bottom: 10px;
+  background: #dff0ff;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-bottom: 10px;
 }
-.history-list th {
-/*	background-color: #dff0ff;*/
-}
-.history-list th:last-child {
-	text-align: center;
+.history-list th:last-child,
+.history-list td:last-child {
+  text-align: center;
 }
 .history-list td:last-child {
-	text-align: center;
-	background-color: #dff0ff;
+  background-color: #dff0ff;
 }
+
+/* ========== レートバー ========== */
 .rate-bar-container {
   width: 100%;
   height: 30px;
@@ -702,14 +577,12 @@ padding: 10px 2px;
   position: relative;
   zoom: 1;
 }
-
 .rate-bar {
   width: 0%;
   height: 100%;
   background-color: #00bcd4;
   transition: width 1.5s ease-out;
 }
-
 .rate-bar-container p {
   position: absolute;
   left: 50%;
@@ -717,12 +590,12 @@ padding: 10px 2px;
   transform: translate(-50%, -50%);
 }
 @media (max-width: 460px) {
-.rate-bar-container p {
-		font-size: 0.75em;
-	}
+  .rate-bar-container p {
+    font-size: 0.75em;
+  }
 }
 
-/* ========== メディアクエリ ========== */
+/* ========== レスポンシブ ========== */
 @media (min-width: 768px) {
   /* ここにレスポンシブ対応を追加 */
 }

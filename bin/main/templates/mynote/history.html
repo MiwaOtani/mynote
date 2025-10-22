@@ -101,24 +101,19 @@
             <p>Copyright &copy; 2025 Anki Appli myNote.</p>
         </footer>
     </div><!--outerWrapper-->
-	
-<!--	<script src="/js/script.js"></script>-->
-<!--	<script>-->
-<!--	  document.addEventListener("DOMContentLoaded", function () {-->
-<!--	    const bar = document.querySelector(".rate-bar");-->
-<!--	    const rate = parseFloat(bar.getAttribute("data-rate")); // 例: "70.0"-->
-<!--	    bar.style.width = rate + "%"; // "70%"-->
-<!--	  });-->
-<!--	</script>-->
+
 	<script>
-	  document.addEventListener("DOMContentLoaded", function () {
-	    document.querySelectorAll(".rate-bar").forEach(function (bar) {
-	      const rate = bar.getAttribute("data-rate");
-	      if (rate !== null) {
-	        bar.style.width = rate + "%";
-	      }
-	    });
-	  });
+		document.addEventListener("DOMContentLoaded", function () {
+		  document.querySelectorAll(".rate-bar").forEach(function (bar) {
+		    const rate = bar.getAttribute("data-rate");
+		    if (rate !== null) {
+		      bar.style.width = "0%"; // 初期状態
+		      setTimeout(() => {
+		        bar.style.width = rate + "%"; // 遅延して変更
+		      }, 100); // 100ms
+		    }
+		  });
+		});
 	</script>
 </body>
 

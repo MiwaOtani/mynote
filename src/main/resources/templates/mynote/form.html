@@ -117,8 +117,11 @@
   
 <!-- ボタン：登録 OR 編集 -->
 <div class="btn-area nav-btn">
-<input th:if="${myNoteForm.isNew}" type="submit" value="これで登録する">
-<input th:unless="${myNoteForm.isNew}" type="submit" value="これで更新する">
+<!--<input th:if="${myNoteForm.isNew}" type="submit" value="これで登録する">-->
+<!--<input th:unless="${myNoteForm.isNew}" type="submit" value="これで更新する">-->
+<!-- 送信ボタンを通常のsubmitから確認用ボタンに変更 -->
+<input type="button" value="これで登録する" onclick="handleConfirm()" th:if="${myNoteForm.isNew}">
+<input type="button" value="これで更新する" onclick="handleConfirm()" th:unless="${myNoteForm.isNew}" >
 </div>
 <!-- フォームクリアボタン -->
 <div class="nav-btn">
@@ -128,6 +131,16 @@
 
 </form>
 <!--<a th:href="@{/mynote}">トップページへ戻る</a>-->
+
+<div id="confirmPopup" class="popup nav-btn hidden">
+  <h3>登録内容の確認</h3>
+  <div id="confirmContent">
+    <!-- JavaScriptで埋める -->
+  </div>
+  <img id="confirmImage" style="max-width: 100%; display: none; margin-top: 10px;">
+  <button type="button" onclick="submitForm()">はい、登録する</button>
+  <button type="button" onclick="cancelPopup()">キャンセル</button>
+</div>
 
 </section>
             <!-- //メインコンテンツここまで -->
@@ -139,7 +152,7 @@
         </footer>
     </div><!--outerWrapper-->
 
-	<script src="/js/script.js"></script>
+	<script src="/js/popup.js"></script>
 </body>
 
 </html>
