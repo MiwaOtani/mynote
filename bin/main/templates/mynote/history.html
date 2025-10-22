@@ -26,61 +26,73 @@
             <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
         </header>
 
-        <main id="main" class="">
+        <main id="main" class="contents">
             <!-- ここにメインコンテンツ -->
-			<h2>勉強した履歴のページ</h2>
-			<!--Flashメッセージの表示-->
-			<p th:if="${message}" th:text="${message}" style="color: blue;">完了メッセージ</p>
-			<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;">エラーメッセージ</p>
-			
-			<p>正答率：<span th:text="${correctRate}">70</span>%</p>
-<br>
-			<p>＜正誤表パターン＞</p>
-			<table>
-			  <tr>
-			    <th>問題一覧</th>
-			    <th>正誤</th>
-				<th>表示</th>
-				<th>切替</th>
-			  </tr>
-			  
-			  <tr th:each="quiz : ${quizzes}">
-			    <td th:text="${quiz.question}">問題文</td>
-				<td>
-				  <span th:if="${quiz.history != null and quiz.history.answeredAt != null}"
-				        th:text="${quiz.history.isCorrect ? '○' : '×'}">○</span>
-				  <span th:if="${quiz.history == null or quiz.history.answeredAt == null}">未回答</span>
-				</td>
-				<td th:text="${quiz.isVisible} ? '表示中' : '非表示'"></td>
-				<td>
-					<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">
-						<input type="hidden" name="redirectTo" th:value="@{/mynote/history}" /> <!-- redirectToを変える -->
-						<button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>
-					</form>
-				</td>
-			</tr>
-			</table>
-			
-			<p>＜未回答を外して集計＞</p>
-			<p>正答率：<span th:text="${correctRate}">70</span>%</p>
+			<section class="history-area">
+				<h2>いままで勉強した履歴</h2>
+				<!--Flashメッセージの表示-->
+				<p th:if="${message}" th:text="${message}" style="color: blue;">完了メッセージ</p>
+				<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;">エラーメッセージ</p>
+				
+				<div class="rate-all frame">
+					<h3>全体の正解率</h3>
+					<!--	未回答を外して集計${correctRate}-->
+					<p><span th:text="${#numbers.formatDecimal(correctRate, 1, 1)}">70</span>%</p>
+					<div class="rate-bar-container">
+						<div class="rate-bar" th:attr="data-rate=${correctRate}" th:inline="text"></div>
+					</div>
+				</div>
+				
+				<div class="word-a-day frame">
+					<h3>今日のひとこと</h3>
+					<p th:text="${dailyMessage}">猫と暮らす</p>
+				</div>	
+				
+				<div class="rate-cate frame">
+					<h3>カテゴリ別正解率</h3>
+					<!-- カテゴリ別の集計 -->
+					<div class="rate-bar-container" th:each="category : ${categories}" th:if="${category != null}">
+						<p>
+					      <span th:text="${category.categoryName}">カテゴリ名</span>：
+					      <span th:text="${#numbers.formatDecimal(categoryCorrectRates[category.categoryId], 1, 1)}">0.0</span>%
+					    </p>
+						<div class="rate-bar" th:attr="data-rate=${categoryCorrectRates[category.categoryId]}" th:inline="text"></div>
+					</div>
+				</div>
 
-			<div th:each="quiz : ${quizzes}">
-			  <div th:if="${quiz.history != null and quiz.history.answeredAt != null}">
-			    <p th:text="${quiz.question}">問題文</p>
-			    <p th:text="${quiz.history.isCorrect ? '○' : '×'}">○<span th:if="${quiz.history == null}">未回答</span></p>
-			  </div>
-			</div>
-			
-			
-			<h3>全体の正解率</h3>
-			<p><span th:text="${correctRate}">70</span>%</p>
-
-			<h3>カテゴリ別正解率</h3>
-			<!-- カテゴリ別の集計があればここに -->
-
-			<h3>今日のひとこと</h3>
-			<p th:text="${dailyMessage}">猫と暮らす</p>
-			
+				<!-- 問題一覧と正誤表 -->
+						<h3> Your History<i class="fa-solid fa-clock-rotate-left"></i></h3>
+						<table class="history-list">
+						  <tr>
+						    <th width="80%"><span>あなたが登録した問題一覧</span></th>
+						    <th width="20%"><span>回答履歴</span></th>
+<!--							<th>表示</th>-->
+<!--							<th>切替</th>-->
+						  </tr>
+						  
+						  <tr th:each="quiz : ${quizzes}">
+						    <td>
+								<a th:href="@{/mynote/quizzes/{id}(id=${quiz.id})}">
+									<span th:text="${quiz.question}">問題とリンク</span>
+								</a>
+							</td>
+							<td>
+							  <span th:if="${quiz.history != null and quiz.history.answeredAt != null}"
+							        th:text="${quiz.history.isCorrect ? '○' : '×'}">○</span>
+							  <span th:if="${quiz.history == null or quiz.history.answeredAt == null}">未回答</span>
+							</td>
+<!--							<td th:text="${quiz.isVisible} ? '表示中' : '非表示'"></td>-->
+<!--							<td>-->
+<!--								<form th:action="@{'/mynote/quizzes/' + (${quiz.isVisible} ? 'hide' : 'show') + '/' + ${quiz.id}}" method="post">-->
+<!--									<input type="hidden" name="redirectTo" th:value="@{/mynote/history}" />  redirectToを変える -->
+<!--									<button type="submit" th:text="${quiz.isVisible} ? '非表示にする' : '表示に戻す'"></button>-->
+<!--								</form>-->
+<!--							</td>-->
+						</tr>
+						</table>
+						
+</section>
+						
             <!-- //メインコンテンツここまで -->
         </main>
 
@@ -90,7 +102,24 @@
         </footer>
     </div><!--outerWrapper-->
 	
-	<script src="/js/script.js"></script>
+<!--	<script src="/js/script.js"></script>-->
+<!--	<script>-->
+<!--	  document.addEventListener("DOMContentLoaded", function () {-->
+<!--	    const bar = document.querySelector(".rate-bar");-->
+<!--	    const rate = parseFloat(bar.getAttribute("data-rate")); // 例: "70.0"-->
+<!--	    bar.style.width = rate + "%"; // "70%"-->
+<!--	  });-->
+<!--	</script>-->
+	<script>
+	  document.addEventListener("DOMContentLoaded", function () {
+	    document.querySelectorAll(".rate-bar").forEach(function (bar) {
+	      const rate = bar.getAttribute("data-rate");
+	      if (rate !== null) {
+	        bar.style.width = rate + "%";
+	      }
+	    });
+	  });
+	</script>
 </body>
 
 </html>

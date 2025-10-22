@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="outerWrapper">
+    <div class="outerWrapper" id="top">
 
         <!-- ヘッダーをインクルード -->
         <header id="header" class="">
@@ -26,7 +26,7 @@
             <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
         </header>
 
-        <main id="main" class="nemu">
+        <main id="main" class="index-nemu">
             <!-- <h2>Let's Study!</h2> -->
 
             <div class="btn">
@@ -38,13 +38,13 @@
             <div class="btn">
                 <a th:href="@{/mynote/quizzes/form}">問題を作成する</a>
             </div>
-
+			
             <!-- <div class="historyback">
                 <button class="nav_btn" onClick="history.back(); return false;" type="button">
                     <i class="fa-solid fa-arrow-rotate-left"></i>前のページにもどる</button>
             </div> -->
         </main>
-
+		
         <!-- フッターをインクルード -->
         <footer id="footer">
             <p>Copyright &copy; 2025 Anki Appli myNote.</p>

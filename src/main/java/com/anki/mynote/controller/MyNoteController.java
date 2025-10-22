@@ -2,7 +2,9 @@ package com.anki.mynote.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -142,7 +144,7 @@ public class MyNoteController {
 			
 			//回答履歴を表示する（/mynote/history）
 			@GetMapping("/history")
-			public String history(Model model) {
+			public String history(@RequestParam(name = "categoryId", required = false) Integer targetCategoryId, Model model) {
 			    List<Quiz> quizzes = service.findAllQuizAdmin(); // クイズ一覧を取得(非表示も含む)
 			    model.addAttribute("quizzes", quizzes);     // テンプレートに渡す
 
@@ -159,11 +161,33 @@ public class MyNoteController {
 			    double rate = total > 0 ? (double) correct / total * 100 : 0.0; // 0除算防止
 			    model.addAttribute("correctRate", rate); // 正答率を渡す
 			    
+
+			    // ★カテゴリ別正答率★
+			    Map<Integer, Double> categoryCorrectRates = quizzes.stream()
+			    		.flatMap(q -> q.getCategories().stream()
+			    			    .map(cat -> Map.entry(cat.getCategoryId(), q.getHistory() != null && q.getHistory().isCorrect())))
+			    	    .collect(Collectors.groupingBy(
+			    	        Map.Entry::getKey,
+			    	        Collectors.collectingAndThen(Collectors.toList(), list -> {
+			    	            long total2 = list.size();
+			    	            long correct2 = list.stream().filter(Map.Entry::getValue).count();
+			    	            return total2 > 0 ? (double) correct2 / total2 * 100 : 0.0;
+			    	        })
+			    	    ));
+			    List<Category> allCategories = service.selectAllCategories();
+
+			    for (Category cat : allCategories) {
+			        categoryCorrectRates.putIfAbsent(cat.getCategoryId(), 0.0);
+			    }
+			    model.addAttribute("categoryCorrectRates", categoryCorrectRates); // Map<Integer, Double>
+			    model.addAttribute("categories", allCategories);  // List<Category>
+
+			    
 			    // ★ひとことリスト★
 			    List<String> messages = List.of(
 			        "ねこでも一回は立ち上がるよ？",
 			        "間違いは食事のチャンス！",
-			        "寝たほうがいいんじゃない？",
+			        "うーん寝たほうがいいんじゃない？",
 			        "焦らず、じらす",
 			        "猫ならできる！"
 			    );

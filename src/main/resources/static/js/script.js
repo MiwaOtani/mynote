@@ -151,6 +151,18 @@ function showPopup(...ids) {
 	}
   });
 }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const bar = document.querySelector(".rate-bar");
+    const rate = parseFloat(bar.getAttribute("data-rate"));
+    bar.style.width = rate + "%";
+  });
+
+//document.addEventListener("DOMContentLoaded", function () {
+//  const rate = document.querySelector("span[th\\:text='${correctRate}']").textContent;
+//  const bar = document.querySelector(".rate-bar");
+//  bar.style.setProperty("--rate", rate);
+//});
 //
 //function showAnswerPopup() {
 //  const popup = document.getElementById('answerPopup');
