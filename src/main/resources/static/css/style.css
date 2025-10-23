@@ -519,6 +519,13 @@ button.incorrect {
   display: block;
 }
 
+.img-area {
+	padding: 10px;
+	text-align: center;
+	max-width: 500px;
+	margin: 0 auto;
+}
+
 
 /* ========== 履歴ページ ========== */
 .frame {

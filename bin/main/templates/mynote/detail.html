@@ -44,7 +44,9 @@
 				</div>
 				<div class="question">
 					<p th:text="${quiz.question}"></p>
-					<img th:if="${quiz.imagePath}" th:src="@{${quiz.imagePath}}" alt="問題画像" width="100%">
+					<div class="img-area">
+						<img th:if="${quiz.imagePath}" th:src="@{${quiz.imagePath}}" alt="問題画像" width="100%">
+					</div>
 				</div>
 				
 				<div class="answer">

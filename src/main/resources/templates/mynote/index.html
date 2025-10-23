@@ -17,14 +17,7 @@
     <div class="outerWrapper" id="top">
 
         <!-- ヘッダーをインクルード -->
-        <header id="header" class="">
-            <nav>
-                <ul>
-                    <li><a class="nav" th:href="@{/mynote}"><i class="fa-solid fa-house-chimney"></i></a></li>
-                    <li><a class="nav" th:href="@{/mynote/admin}"><i class="fa-solid fa-gear"></i></a></li>
-            </nav>
-            <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
-        </header>
+		<header id="header" th:replace="mynote/common::header"></header>
 
         <main id="main" class="index-nemu">
             <!-- <h2>Let's Study!</h2> -->
@@ -46,9 +39,7 @@
         </main>
 		
         <!-- フッターをインクルード -->
-        <footer id="footer">
-            <p>Copyright &copy; 2025 Anki Appli myNote.</p>
-        </footer>
+		<footer id="footer" th:replace="mynote/common::footer"></footer>
     </div><!--outerWrapper-->
 	
 </body>

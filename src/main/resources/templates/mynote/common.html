@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>インクルード用</title>
+</head>
+<body>
+	
+	<!--	インクルード用ヘッダー -->
+		<header id="header" th:fragment="header">
+		    <nav>
+		        <ul>
+		            <li><a class="nav" th:href="@{/mynote}"><i class="fa-solid fa-house-chimney"></i></a></li>
+		            <li><a class="nav" th:href="@{/mynote/admin}"><i class="fa-solid fa-gear"></i></a></li>
+				</ul>
+		    </nav>
+		    <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
+		</header>
+		
+	<!--	インクルード用フッター -->
+		<footer id="footer" th:fragment="footer">
+			<p>Copyright &copy; 2025 Anki Appli myNote.</p>
+		</footer>
+</body>
+</html>
