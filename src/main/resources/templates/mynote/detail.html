@@ -84,48 +84,14 @@
 						<span th:text="${quiz.answer4}">答え4</span></button>
 					  </form>
 				</div>
-				
-				
-				
-<!--				<div id="answerPopup" class="popup hidden">-->
-<!--				  <div th:if="${isCorrect != null}">-->
-<!--				    <p th:text="${isCorrect} ? '正解！' : '不正解…'"></p>-->
-<!--				    <p>あなたの選択: <span th:text="${selected}"></span></p>-->
-<!--				    <p>正解は: <span th:text="${quiz.correctAns}"></span></p>-->
-<!--				  </div>-->
-<!--				</div>-->
-
-				
-
-					
-<!--						<p>あなたの選択: <span th:text="${selected}"></span></p>-->
-<!--						<p>正解は: <span th:text="${quiz.correctAns}"></span></p>-->
-<!--					    <p>🎉 正解！よくできました！</p>-->
-
-<!--					<div th:if="${isCorrect != null}">-->
-<!--					  <p th:text="${isCorrect} ? '正解！' : '不正解…'"></p>-->
-<!--					  <p>あなたの選択: <span th:text="${selected}"></span></p>-->
-<!--					  <p>正解は: <span th:text="${quiz.correctAns}"></span></p>-->
-<!--					</div>-->
-				</div>
-
-<!--このページにはいらないのでは？-->
-<!--				<div class="edit">-->
-<!--					<a th:href="@{/mynote/quizzes/edit/{id}(id=${quiz.id})}">編集する</a>-->
-<!--				</div>-->
-							
+				</div>	
 			</section>
 				
-	
 				<!-- 次の問題へ -->
 				<p class="nav-btn wide">
 				  <a th:href="@{/mynote/quizzes/{id}(id=${quiz.id + 1})}">次の問題へすすむ</a>
 				</p>
 
-				<!-- 問題一覧へ
-				<p class="nav_btn">
-				  <a th:href="@{/mynote/quizzes}">問題一覧へ</a>
-				</p> -->
 				<div class="grid-items grid-items3">
 				<!-- もう一回 -->
 				<div class="try-again">

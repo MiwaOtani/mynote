@@ -46,13 +46,7 @@
 	<select id="categoryId" th:field="*{categoryId}">
 	    <option value="" disabled selected>選んでください</option>
 	    <option th:each="cat : ${categories}" th:value="${cat.categoryId}" th:text="${cat.categoryName}"></option>
-<!--		<option th:each="cat : ${categories}"-->
-<!--		        th:value="${cat != null ? cat.categoryId : 0}"-->
-<!--		        th:text="${cat != null ? cat.categoryName : '未設定'}">-->
-<!--		</option>-->
-
 	</select>
-	
 
 	
 <h3>問題形式 <i class="fa-solid fa-truck-pickup"></i><br><small>※回答2件は必須です。正解にチェックをしてください。</small></h3>
