@@ -16,15 +16,8 @@
 <body>
     <div class="outerWrapper">
 
-        <!-- ヘッダーをインクルード -->
-        <header id="header" class="">
-            <nav>
-                <ul>
-                    <li><a class="nav" th:href="@{/mynote}"><i class="fa-solid fa-house-chimney"></i></a></li>
-                    <li><a class="nav" th:href="@{/mynote/admin}"><i class="fa-solid fa-gear"></i></a></li>
-            </nav>
-            <h1>myNote<i class="fa-solid fa-pencil"></i></h1>
-        </header>
+		<!-- ヘッダーをインクルード -->
+		<header id="header" th:replace="mynote/common::header"></header>
 
         <main id="main" class="">
             <!-- ここにメインコンテンツ -->
@@ -55,10 +48,8 @@
 <!-- //メインコンテンツここまで -->
         </main>
 
-        <!-- フッターをインクルード -->
-        <footer id="footer">
-            <p>Copyright &copy; 2025 Anki Appli myNote.</p>
-        </footer>
+		<!-- フッターをインクルード -->
+		<footer id="footer" th:replace="mynote/common::footer"></footer>
     </div><!--outerWrapper-->
 	
 </body>
