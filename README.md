@@ -3,7 +3,7 @@
 | 項目 | 使用技術 |
 |------|------------|
 | 言語 | Java 21 |
-| フレームワーク | JSP / Servlet |
+| フレームワーク | Spring Framework / MyBatis / Thymeleaf / Lambok |
 | IDE | Eclipse |
 | Web サーバ | Apache Tomcat |
 | データベース | MySQL |
