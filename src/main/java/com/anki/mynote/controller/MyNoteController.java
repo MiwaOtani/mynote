@@ -93,53 +93,6 @@ public class MyNoteController {
 			    return "redirect:/mynote/quizzes/" + id;
 			}
 			
-//			
-//			@PostMapping("/quizzes/check/{id}")
-//			public String checkAnswer(@PathVariable Integer id,
-//			                          @Valid MyNoteForm form,
-//			                          BindingResult result,
-//			                          Model model,
-//			                          RedirectAttributes redirectAttributes) {
-//
-//			    Quiz quiz = service.findByIdQuiz(id);
-//
-////			    if (result.hasErrors()) {
-////			        model.addAttribute("quiz", quiz);
-////			        model.addAttribute("myNoteForm", form);
-////			        return "mynote/detail";
-////			    }
-//
-//			    int selected = form.getAns(); // ← ここで取得すればOK
-//			    boolean isCorrect = (selected == quiz.getCorrectAns());
-//
-//			    redirectAttributes.addFlashAttribute("quiz", quiz);
-//			    redirectAttributes.addFlashAttribute("selected", selected);
-//			    redirectAttributes.addFlashAttribute("isCorrect", isCorrect);
-//
-//			    return "redirect:/mynote/quizzes/" + id;
-//			}
-			
-//			@PostMapping("/quizzes/check/{id}")
-//			public String checkAnswer(@RequestParam("ans") int selected,
-//					@PathVariable Integer id,
-//                    @Valid MyNoteForm form,
-//                    BindingResult result,
-//                    Model model,
-//                    RedirectAttributes redirectAttributes) {
-//if (result.hasErrors()) {
-//  Quiz quiz = service.findByIdQuiz(id);
-//  model.addAttribute("quiz", quiz);
-//  model.addAttribute("myNoteForm", form);
-//  return "mynote/detail"; // ← エラー時に戻るテンプレート
-//}
-//
-//			    Quiz quiz = service.findByIdQuiz(id);
-//			    boolean isCorrect = (selected == quiz.getCorrectAns());
-//			    redirectAttributes.addFlashAttribute("quiz", quiz);
-//			    redirectAttributes.addFlashAttribute("selected", selected);
-//			    redirectAttributes.addFlashAttribute("isCorrect", isCorrect);
-//			    return "redirect:/mynote/quizzes/" + id;
-//			}
 
 			
 			//回答履歴を表示する（/mynote/history）
@@ -349,32 +302,6 @@ public class MyNoteController {
 				redirectAttributes.addFlashAttribute("message2", "問題を表示に戻しました");
 				return "redirect:" + redirectTo;
 			}
-
-
-//			@PostMapping("/quizzes/hide/{id}")
-//			@ResponseBody
-//			public String hide(@PathVariable Integer id, Model model) {
-//			    service.hideQuiz(id);
-////			    model.addAttribute("message", "問題を非表示にしました");
-//			    return "OK";
-//			}
-//
-//			@PostMapping("/quizzes/show/{id}")
-//			@ResponseBody
-//			public String show(@PathVariable Integer id, Model model) {
-//			    service.showQuiz(id);
-////			    model.addAttribute("message", "問題を表示に戻しました");
-//			    return "OK";
-//			}
-			
-//			//トグル型
-//			@PostMapping("/toggle/{id}")
-//			public String toggleVisibility(@PathVariable Integer id, RedirectAttributes attributes) {
-//				// 表示状態を切り替える
-//				MyNoteService.toggleVisibility(id);
-//				attributes.addFlashAttribute("message", "問題の表示状態を切り替えました");
-//				return "redirect:/mynote/quizzes";
-//			}
 		
 
 }
