@@ -92,7 +92,22 @@ mynote/
 schema.sql
 data.sql
 ````
+DB接続情報は `application-local.properties` 内で設定しています。
+```
+spring.application.name=mynote
+spring.datasource.url=jdbc:mysql://localhost:3306/mynote?useSSL=false&serverTimezone=Asia/Tokyo
+spring.datasource.username=root
+spring.datasource.password="（あなたのパスワード）";
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
+ActiveProfilesでサーバー用ローカル用を出し分けているので、  
+ローカルでの初回起動時には `application-local.properties` を読み込むように実行構成に引数を追加する必要があります。  
+プロジェクト名右クリック→実行→実行構成→引数タブを選択し、「プログラムの引数」に  
+--spring.profiles.active=local  
+と入力してから実行してください。  
+
 ---
+
 ## 🚀 起動方法
 
 1. プロジェクトを Eclipse にインポート
@@ -102,7 +117,7 @@ data.sql
 4. ブラウザで以下にアクセス：
 
 ```
-http://localhost:8080/mynote
+http://localhost:8081/mynote
 ```
 
 ---
